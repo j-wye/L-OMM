@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<robot name="gripper_camera" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:property name="M_PI" value="3.14159265358979323846"/>
+  <xacro:macro name="load_gripper_camera" params="parent">
+    <joint name="camera_case_joint" type="fixed">
+      <origin rpy="0 -${M_PI/2} 0" xyz="0 0 0.01794"/>
+      <parent link="${parent}"/>
+      <child link="camera_case_link"/>
+    </joint>
+    <link name="camera_case_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="-0.01254 0 0"/>
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/arm/camera_case.stl"/>
+        </geometry>
+        <material name="">
+          <color rgba="0 0 0 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="-0.01254 0 0"/>
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/arm/camera_case.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin rpy="0 0 0" xyz="-0.01254 0 0"/>
+        <mass value="0.072"/>
+        <inertia ixx="9.955494960000002e-05" ixy="0.0" ixz="0.0" iyy="2.8038549599999993e-05" iyz="0.0" izz="0.00012570648"/>
+      </inertial>
+    </link>
+    <joint name="gripper_camera_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="0.02505 0 0.08203"/>
+      <parent link="camera_case_link"/>
+      <child link="gripper_camera"/>
+    </joint>
+    <link name="gripper_camera">
+      <visual>
+        <origin rpy="${M_PI/2} 0 ${M_PI/2}" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/arm/d435.dae"/>
+        </geometry>
+        <material name="aluminum">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="${M_PI/2} 0 ${M_PI/2}" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/arm/d435.dae"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin rpy="${M_PI/2} 0 ${M_PI/2}" xyz="0 0 0"/>
+        <mass value="0.072"/>
+        <inertia ixx="7.515015e-06" ixy="0.0" ixz="0.0" iyy="5.234999999999999e-05" iyz="0.0" izz="5.236501499999999e-05"/>
+      </inertial>
+    </link>
+    <joint name="gripper_camera_depth_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="-0.00595 0.0175 0"/>
+      <parent link="gripper_camera"/>
+      <child link="gripper_camera_depth_frame"/>
+    </joint>
+    <link name="gripper_camera_depth_frame"/>
+    <joint name="gripper_camera_depth_optical_joint" type="fixed">
+      <origin rpy="-${M_PI/2} 0 -${M_PI/2}" xyz="0 0 0"/>
+      <parent link="gripper_camera_depth_frame"/>
+      <child link="gripper_camera_depth_optical_frame"/>
+    </joint>
+    <link name="gripper_camera_depth_optical_frame"/>
+    <joint name="gripper_camera_color_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0.015 0"/>
+      <parent link="gripper_camera_depth_frame"/>
+      <child link="gripper_camera_color_frame"/>
+    </joint>
+    <link name="gripper_camera_color_frame"/>
+    <joint name="gripper_camera_color_optical_joint" type="fixed">
+      <origin rpy="-${M_PI/2} 0 -${M_PI/2}" xyz="0 0 0"/>
+      <parent link="gripper_camera_color_frame"/>
+      <child link="gripper_camera_color_optical_frame"/>
+    </joint>
+    <link name="gripper_camera_color_optical_frame"/>
+  </xacro:macro>
+</robot>

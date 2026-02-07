@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="tracer_mini" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="connection_link" value="base_arm_connector" />
+  <xacro:property name="M_PI" value="3.14159265358979323846" />
+  <xacro:property name="base_body_width" value="0.4" />
+  <xacro:property name="base_body_length" value="0.4" />
+  <xacro:property name="total_height" value="0.29386" />
+  <xacro:property name="front_wheel_length" value="0.127547" />
+  <xacro:property name="front_wheel_radius" value="0.0575" />
+  <xacro:property name="front_wheel_depth" value="0.079536242431022" />
+  <xacro:property name="rear_wheel_length" value="0.125" />
+  <xacro:property name="rear_wheel_radius" value="0.0325" />
+  <xacro:property name="rear_wheel_depth" value="0.022335230282742743" />
+
+  <!-- About the mass ratio of each part: -->
+  <xacro:property name="base_body_mass" value="24.3948952632956" />
+  <xacro:property name="front_wheel_mass" value="1.0568406891164" />
+  <xacro:property name="rear_wheel_bracket_mass" value="0.0211573699864" />
+  <xacro:property name="rear_wheel_mass" value="0.0920111896829" />
+  <xacro:property name="camera_mass" value="0.2333248928640" />
+  <xacro:property name="lidar_mass" value="0.1071556446529" />
+  <xacro:property name="base_arm_connector_mass" value="0.4535071053510" />
+
+  <xacro:include filename="$(find mobile_manipulator)/urdf/inertial.xacro" />
+
+	<xacro:macro name="load_base" params="parent">
+    <joint name="base_body_joint" type="fixed">
+      <origin xyz="0 0 ${total_height}" rpy="0 0 0" />
+      <parent link="${parent}" />
+      <child link="base_body" />
+      <axis xyz="0 0 0" />
+    </joint>
+    <link name="base_body">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/base_body.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/base_body.stl" />
+        </geometry>
+      </collision>
+      <xacro:inertial_box mass="${base_body_mass}" x="0.4" y="0.4" z="0.26344">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </xacro:inertial_box>
+    </link>
+
+    <joint name="fl_joint" type="fixed">
+      <origin xyz="0.05 ${front_wheel_length} ${front_wheel_radius - total_height} " rpy="-${M_PI / 2} 0 0"/>
+      <parent link="base_body" />
+      <child link="fl_wheel" />
+      <axis xyz="0 0 1" />
+      <dynamics damping="0.1" friction="0.1" />
+    </joint>
+    <link name="fl_wheel">
+      <visual>
+        <origin rpy="${M_PI/2} 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/front_wheel.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.5 0.5 0.5 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="${M_PI/2} 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/front_wheel.stl" />
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="${front_wheel_mass}" length="${front_wheel_depth}" radius="${front_wheel_radius}">
+        <origin rpy="${M_PI/2} 0 0" xyz="0 0 0" />
+      </xacro:inertial_cylinder>
+    </link>
+
+
+    <joint name="fr_joint" type="fixed">
+      <origin xyz="0.05 -${front_wheel_length} ${front_wheel_radius - total_height}" rpy="${M_PI/2} 0 0" />
+      <parent link="base_body" />
+      <child link="fr_wheel" />
+      <axis xyz="0 0 1" />
+      <dynamics damping="0.1" friction="0.1" />
+    </joint>
+    <link name="fr_wheel">
+      <visual>
+        <origin rpy="-${M_PI/2} 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/front_wheel.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.5 0.5 0.5 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="-${M_PI/2} 0 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/front_wheel.stl" />
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="${front_wheel_mass}" length="${front_wheel_depth}" radius="${front_wheel_radius}">
+        <origin rpy="-${M_PI/2} 0 0" xyz="0 0 0" />
+      </xacro:inertial_cylinder>
+    </link>
+
+    <joint name="rl_bracket_joint" type="fixed">
+      <origin xyz="-0.17043 ${rear_wheel_length} ${rear_wheel_radius - total_height + 0.0453}" rpy="0 0 0" />
+      <parent link="base_body" />
+      <child link="rl_bracket" />
+      <axis xyz="0 0 1" />
+      <dynamics damping="0.1" friction="0.0" />
+    </joint>
+    <link name="rl_bracket">
+      <visual>
+        <origin rpy="0 0 ${M_PI/2}" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/rear_wheel_bracket.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.5 0.5 0.5 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 0 ${M_PI/2}" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/rear_wheel_bracket.stl" />
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="${rear_wheel_bracket_mass}" length="0.0453" radius="0.01">
+        <origin rpy="0 0 ${M_PI/2}" xyz="0 0 0" />
+      </xacro:inertial_cylinder>
+    </link>
+
+
+    <joint name="rl_wheel_joint" type="fixed">
+      <origin xyz="-0.027 0 -0.0453" rpy="-${M_PI/2} 0 0" />
+      <parent link="rl_bracket" />
+      <child link="rl_wheel" />
+      <axis xyz="0 0 1" />
+      <dynamics damping="0.1" friction="0.0" />
+    </joint>
+    <link name="rl_wheel">
+      <visual>
+        <origin rpy="0 -${M_PI/2} 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/rear_wheel.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.5 0.5 0.5 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 -${M_PI/2} 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/rear_wheel.stl" />
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="${rear_wheel_mass}" length="${rear_wheel_depth}" radius="${rear_wheel_radius}">
+        <origin rpy="0 -${M_PI/2} 0" xyz="0 0 0" />
+      </xacro:inertial_cylinder>
+    </link>
+
+
+    <joint name="rr_bracket_joint" type="fixed">
+      <origin xyz="-0.17043 -${rear_wheel_length} ${rear_wheel_radius - total_height + 0.0453}" rpy="0 0 0" />
+      <parent link="base_body" />
+      <child link="rr_bracket" />
+      <axis xyz="0 0 1" />
+      <dynamics damping="0.1" friction="0.0" />
+    </joint>
+    <link name="rr_bracket">
+      <visual>
+        <origin rpy="0 0 ${M_PI/2}" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/rear_wheel_bracket.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.5 0.5 0.5 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 0 ${M_PI/2}" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/rear_wheel_bracket.stl" />
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="${rear_wheel_bracket_mass}" length="0.0453" radius="0.01">
+        <origin rpy="0 0 ${M_PI/2}" xyz="0 0 0" />
+      </xacro:inertial_cylinder>
+    </link>
+
+    <joint name="rr_wheel_joint" type="fixed">
+      <origin xyz="-0.027 0 -0.0453" rpy="${M_PI/2} 0 0" />
+      <parent link="rr_bracket" />
+      <child link="rr_wheel" />
+      <axis xyz="0 0 1" />
+      <dynamics damping="0.1" friction="0.0" />
+    </joint>
+    <link name="rr_wheel">
+      <visual>
+        <origin rpy="0 ${M_PI/2} 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/rear_wheel.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.5 0.5 0.5 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 ${M_PI/2} 0" xyz="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/rear_wheel.stl" />
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="${rear_wheel_mass}" length="${rear_wheel_depth}" radius="${rear_wheel_radius}">
+        <origin rpy="0 ${M_PI/2} 0" xyz="0 0 0" />
+      </xacro:inertial_cylinder>
+    </link>
+
+    
+    <joint name="lidar_joint" type="fixed">
+      <origin xyz="0.04517 0 -0.1053" rpy="0 0 ${M_PI}" />
+      <parent link="base_body" />
+      <child link="lidar_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+    <link name="lidar_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/lidar.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="1 0.6 0 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/lidar.stl" />
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="${lidar_mass}" length="0.02" radius="0.0389">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </xacro:inertial_cylinder>
+    </link>
+    
+
+    <joint name="camera_joint" type="fixed">
+      <origin xyz="0.115 0 -0.04565" rpy="0 0 0" />
+      <parent link="base_body" />
+      <child link="camera_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+    <link name="camera_link">
+      <!-- <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/camera.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.79216 0.81961 0.93333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/camera.stl" />
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="${camera_mass}" length="0.08832" radius="0.01265">
+        <origin xyz="0 0 0" rpy="-${M_PI/2} 0 0" />
+      </xacro:inertial_cylinder> -->
+    </link>
+
+
+    <joint name="base_arm_connector_joint" type="fixed">
+      <origin xyz="0 0 0.0576" rpy="0 0 0" />
+      <parent link="base_body" />
+      <child link="base_arm_connector"/>
+      <axis xyz="0 0 0" />
+    </joint>
+    <link name="base_arm_connector">
+      <visual>
+        <origin xyz="0 0 -0.0288" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/base_arm_connector.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.79216 0.81961 0.93333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.0288" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://mobile_manipulator/meshes/base/base_arm_connector.stl" />
+        </geometry>
+      </collision>
+      <xacro:inertial_truncated_cone mass="${base_arm_connector_mass}" r1="0.03697" r2="0.05137" height="0.0576">
+        <origin xyz="0 0 -0.0288" rpy="0 0 0" />
+      </xacro:inertial_truncated_cone>
+    </link>
+    <gazebo reference="base_arm_connector">
+        <material>Kortex/Gray</material>
+    </gazebo>
+  </xacro:macro>
+</robot>

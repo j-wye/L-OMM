@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="mobile_manipulator">
+	<xacro:arg name="robot_ip" default="192.168.1.10"/>
+	<xacro:arg name="username" default="admin"/>
+	<xacro:arg name="password" default="admin"/>
+	<xacro:arg name="port" default="10000"/>
+	<xacro:arg name="port_realtime" default="10001"/>
+	<xacro:arg name="session_inactivity_timeout_ms" default="60000"/>
+	<xacro:arg name="connection_inactivity_timeout_ms" default="2000"/>
+	<xacro:arg name="use_internal_bus_gripper_comm" default="true"/>
+	<xacro:arg name="gripper_joint_name" default="right_finger_bottom_joint"/>
+	<xacro:arg name="gripper_max_velocity" default="100.0"/>
+	<xacro:arg name="gripper_max_force" default="100.0"/>
+
+	<xacro:arg name="gripper_com_port" default="/dev/ttyUSB0"/>
+	<xacro:arg name="initial_value" default="$(find mobile_manipulator)/config/initial_value.yaml"/>
+	<xacro:property name="initial_value" default="$(arg initial_value)"/>
+
+	<xacro:include filename="$(find mobile_manipulator)/urdf/mobile_base.xacro"/>
+	<xacro:include filename="$(find mobile_manipulator)/urdf/manipulator_arm.xacro"/>
+	<xacro:include filename="$(find mobile_manipulator)/urdf/gripper_camera.xacro"/>
+	<xacro:include filename="$(find mobile_manipulator)/urdf/ros2_control.xacro"/>
+
+	<link name="base_link"/>
+	<xacro:load_base parent="base_link"/>
+	<xacro:load_arm parent="${connection_link}"/>
+	<xacro:load_gripper_camera parent="${camera_connection_link}"/>
+	<xacro:load_ros2_control
+		robot_ip="$(arg robot_ip)"
+		username="$(arg username)"
+		password="$(arg password)"
+		port="$(arg port)"
+		port_realtime="$(arg port_realtime)"
+		session_inactivity_timeout_ms="$(arg session_inactivity_timeout_ms)"
+		connection_inactivity_timeout_ms="$(arg connection_inactivity_timeout_ms)"
+		use_internal_bus_gripper_comm="$(arg use_internal_bus_gripper_comm)"
+		gripper_joint_name="$(arg gripper_joint_name)"
+		gripper_max_velocity="$(arg gripper_max_velocity)"
+		gripper_max_force="$(arg gripper_max_force)"
+		gripper_com_port="$(arg gripper_com_port)"
+		initial_value="${initial_value}"
+	/>
+</robot>

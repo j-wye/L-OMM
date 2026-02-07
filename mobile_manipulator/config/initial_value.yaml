@@ -1,0 +1,16 @@
+fl_joint: 0.0
+fr_joint: 0.0
+rl_bracket_joint: 0.0
+rl_wheel_joint: 0.0
+rr_bracket_joint: 0.0
+rr_wheel_joint: 0.0
+arm_joint_1: 0.0
+arm_joint_2: 1.7453
+arm_joint_3: 2.6878
+arm_joint_4: 1.5708
+arm_joint_5: 0.6283
+arm_joint_6: -1.5708
+right_finger_bottom_joint: 0.0
+right_finger_tip_joint: 0.0
+left_finger_bottom_joint: 0.0
+left_finger_tip_joint: 0.0

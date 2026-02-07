@@ -1,0 +1,10 @@
+/home/kau/kau_ws/src/tracer_ros2/tracer_base/build/CMakeFiles/uninstall.dir
+/home/kau/kau_ws/src/tracer_ros2/tracer_base/build/CMakeFiles/tracer_base_uninstall.dir
+/home/kau/kau_ws/src/tracer_ros2/tracer_base/build/CMakeFiles/tracer_base_node.dir
+/home/kau/kau_ws/src/tracer_ros2/tracer_base/build/CMakeFiles/test.dir
+/home/kau/kau_ws/src/tracer_ros2/tracer_base/build/CMakeFiles/edit_cache.dir
+/home/kau/kau_ws/src/tracer_ros2/tracer_base/build/CMakeFiles/rebuild_cache.dir
+/home/kau/kau_ws/src/tracer_ros2/tracer_base/build/CMakeFiles/list_install_components.dir
+/home/kau/kau_ws/src/tracer_ros2/tracer_base/build/CMakeFiles/install.dir
+/home/kau/kau_ws/src/tracer_ros2/tracer_base/build/CMakeFiles/install/local.dir
+/home/kau/kau_ws/src/tracer_ros2/tracer_base/build/CMakeFiles/install/strip.dir
