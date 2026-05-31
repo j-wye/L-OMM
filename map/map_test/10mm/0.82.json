@@ -1,0 +1,153 @@
+{
+  "type": "reduced_3dof_active_map_layer",
+  "filename_key": "target_height_m",
+  "filename_key_format": "fixed_two_decimal_height",
+  "map_filename": "0.82.npy",
+  "q_map_filename": "q_0.82.npy",
+  "metadata_filename": "0.82.json",
+  "resolution_m": 0.01,
+  "x_range": [
+    0.0,
+    0.53
+  ],
+  "z_range": [
+    0.0,
+    1.36
+  ],
+  "n_x": 54,
+  "n_z": 137,
+  "tensor_shape": [
+    54,
+    137,
+    3
+  ],
+  "channels": [
+    "manipulability_abs_det_3x3",
+    "required_pitch_rad",
+    "sigma_min_3x3"
+  ],
+  "q_map_shape": [
+    54,
+    137,
+    3
+  ],
+  "q_map_channels": [
+    "arm_joint_2",
+    "arm_joint_3",
+    "arm_joint_5"
+  ],
+  "active_joint_policy": {
+    "active": [
+      "arm_joint_2",
+      "arm_joint_3",
+      "arm_joint_5"
+    ],
+    "fixed": {
+      "arm_joint_1": 0.0,
+      "arm_joint_4": 1.5707963267948966,
+      "arm_joint_6": -1.5707963267948966
+    }
+  },
+  "target_height": 0.82,
+  "target_height_key": "0.82",
+  "target_y_fixed_m": 0.047,
+  "x_opt_ee_goal_m": 0.4,
+  "target_contact_x_m": 0.53,
+  "tool_offset_m": 0.13,
+  "pitch_formula": "atan2(target_contact_x - x, target_height - z)",
+  "q_home_reduced_seed": [
+    1.4689332246780396,
+    2.2565395832061768,
+    0.7454720735549927
+  ],
+  "workspace": {
+    "center_xz": [
+      0.0,
+      0.595
+    ],
+    "radius_m": 0.77
+  },
+  "method": "reduced-q235-gpu-wavefront-map",
+  "manipulability_formula": "|det(J)|, J in R^{3x3}, rows=(x,z,gaze_pitch), cols=(q2,q3,q5)",
+  "stats": {
+    "tag": "0.82",
+    "height": 0.82,
+    "target_y_fixed_m": 0.047,
+    "target_contact_x_m": 0.53,
+    "ee_goal_x_m": 0.4,
+    "tool_offset_m": 0.13,
+    "n_valid_workspace": 8764,
+    "phase_a_ik_calls": 8764,
+    "phase_a_solved": 1968,
+    "ik_solved_before_collision": 2406,
+    "wavefront": [
+      {
+        "ik_calls": 52418,
+        "new": 415,
+        "improved": 0,
+        "radius": 2,
+        "solved_after": 2383
+      },
+      {
+        "ik_calls": 17876,
+        "new": 5,
+        "improved": 0,
+        "radius": 3,
+        "solved_after": 2388
+      },
+      {
+        "ik_calls": 33720,
+        "new": 0,
+        "improved": 0,
+        "radius": 5,
+        "solved_after": 2388
+      },
+      {
+        "ik_calls": 434030,
+        "new": 1,
+        "improved": 0,
+        "radius": 10,
+        "solved_after": 2389
+      },
+      {
+        "ik_calls": 2833713,
+        "new": 5,
+        "improved": 0,
+        "radius": 20,
+        "solved_after": 2394
+      },
+      {
+        "ik_calls": 13957920,
+        "new": 8,
+        "improved": 0,
+        "radius": 40,
+        "solved_after": 2402
+      },
+      {
+        "ik_calls": 23730496,
+        "new": 4,
+        "improved": 0,
+        "radius": 60,
+        "solved_after": 2406
+      }
+    ],
+    "collision": {
+      "enabled": true,
+      "checked": 2406,
+      "filtered": 7,
+      "workers": 12,
+      "time_s": 5.602,
+      "skipped_reason": ""
+    },
+    "target_neighborhood_exclusion_enabled": false,
+    "exclusion_zeroed_cells": 0,
+    "valid_save_cells": 2399,
+    "coverage_save_pct": 32.428,
+    "mu_min": 0.0001070287253241986,
+    "mu_mean": 0.05456728860735893,
+    "mu_p05": 0.02756677158176899,
+    "mu_p50": 0.059392355382442474,
+    "mu_max": 0.06859999895095825,
+    "time_s": 476.656
+  }
+}

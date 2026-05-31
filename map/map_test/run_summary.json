@@ -1,0 +1,4307 @@
+{
+  "created_at_unix": 1780084983.3323994,
+  "total_time_s": 6634.13,
+  "device": "cuda:0",
+  "output_dir": "/home/adas/vlm/src/map/map_test",
+  "q_home_source": "/home/adas/vlm/src/map/map_test/q_home_table_reduced.npy",
+  "map_count": 51,
+  "height_workers": 4,
+  "collision_workers_per_height": 12,
+  "height_parallel_policy": "all heights per resolution when --height-workers=0",
+  "fixed_y_m": 0.047,
+  "x_opt_ee_goal_m": 0.4,
+  "target_contact_x_m": 0.53,
+  "tool_offset_m": 0.13,
+  "target_neighborhood_exclusion_enabled": false,
+  "resolutions": [
+    0.01
+  ],
+  "heights": [
+    0.4,
+    0.41,
+    0.42,
+    0.43,
+    0.44,
+    0.45,
+    0.46,
+    0.47,
+    0.48,
+    0.49,
+    0.5,
+    0.51,
+    0.52,
+    0.53,
+    0.54,
+    0.55,
+    0.56,
+    0.57,
+    0.58,
+    0.59,
+    0.6,
+    0.61,
+    0.62,
+    0.63,
+    0.64,
+    0.65,
+    0.66,
+    0.67,
+    0.68,
+    0.69,
+    0.7,
+    0.71,
+    0.72,
+    0.73,
+    0.74,
+    0.75,
+    0.76,
+    0.77,
+    0.78,
+    0.79,
+    0.8,
+    0.81,
+    0.82,
+    0.83,
+    0.84,
+    0.85,
+    0.86,
+    0.87,
+    0.88,
+    0.89,
+    0.9
+  ],
+  "rows": [
+    {
+      "tag": "0.40",
+      "height": 0.4,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2336,
+      "ik_solved_before_collision": 3034,
+      "wavefront": [
+        {
+          "ik_calls": 37616,
+          "new": 665,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 3001
+        },
+        {
+          "ik_calls": 17952,
+          "new": 4,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 3005
+        },
+        {
+          "ik_calls": 34571,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 3005
+        },
+        {
+          "ik_calls": 699719,
+          "new": 8,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 3013
+        },
+        {
+          "ik_calls": 3175719,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 3018
+        },
+        {
+          "ik_calls": 15641425,
+          "new": 8,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 3026
+        },
+        {
+          "ik_calls": 26496148,
+          "new": 8,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 3034
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 3034,
+        "filtered": 229,
+        "workers": 12,
+        "time_s": 11.286,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2805,
+      "coverage_save_pct": 37.916,
+      "mu_min": 1.716366568871308e-05,
+      "mu_mean": 0.05503522604703903,
+      "mu_p05": 0.02920324578881264,
+      "mu_p50": 0.05982225388288498,
+      "mu_max": 0.06860000640153885,
+      "time_s": 533.133,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.41",
+      "height": 0.41,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 2325,
+      "ik_solved_before_collision": 2997,
+      "wavefront": [
+        {
+          "ik_calls": 37236,
+          "new": 650,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2975
+        },
+        {
+          "ik_calls": 8937,
+          "new": 0,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2975
+        },
+        {
+          "ik_calls": 68912,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2977
+        },
+        {
+          "ik_calls": 465038,
+          "new": 8,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2985
+        },
+        {
+          "ik_calls": 3166146,
+          "new": 8,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2993
+        },
+        {
+          "ik_calls": 15610349,
+          "new": 4,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2997
+        },
+        {
+          "ik_calls": 13206570,
+          "new": 0,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2997
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2997,
+        "filtered": 205,
+        "workers": 12,
+        "time_s": 7.571,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2792,
+      "coverage_save_pct": 37.74,
+      "mu_min": 2.1345116692828014e-05,
+      "mu_mean": 0.0551164336502552,
+      "mu_p05": 0.029767777118831874,
+      "mu_p50": 0.059830442070961,
+      "mu_max": 0.06860001385211945,
+      "time_s": 397.197,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.42",
+      "height": 0.42,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 2301,
+      "ik_solved_before_collision": 2976,
+      "wavefront": [
+        {
+          "ik_calls": 37088,
+          "new": 645,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2946
+        },
+        {
+          "ik_calls": 17802,
+          "new": 1,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2947
+        },
+        {
+          "ik_calls": 34294,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2947
+        },
+        {
+          "ik_calls": 462884,
+          "new": 12,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2959
+        },
+        {
+          "ik_calls": 3157615,
+          "new": 2,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2961
+        },
+        {
+          "ik_calls": 15584101,
+          "new": 10,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2971
+        },
+        {
+          "ik_calls": 26351497,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2976
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2976,
+        "filtered": 192,
+        "workers": 12,
+        "time_s": 12.493,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2784,
+      "coverage_save_pct": 37.632,
+      "mu_min": 0.00019134674221277237,
+      "mu_mean": 0.05508871003985405,
+      "mu_p05": 0.029266259633004665,
+      "mu_p50": 0.059889452531933784,
+      "mu_max": 0.06859998404979706,
+      "time_s": 531.814,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.43",
+      "height": 0.43,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2288,
+      "ik_solved_before_collision": 2956,
+      "wavefront": [
+        {
+          "ik_calls": 40239,
+          "new": 636,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2924
+        },
+        {
+          "ik_calls": 17846,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2927
+        },
+        {
+          "ik_calls": 68588,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2929
+        },
+        {
+          "ik_calls": 692269,
+          "new": 10,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2939
+        },
+        {
+          "ik_calls": 3148538,
+          "new": 3,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2942
+        },
+        {
+          "ik_calls": 15556879,
+          "new": 7,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2949
+        },
+        {
+          "ik_calls": 26300463,
+          "new": 7,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2956
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2956,
+        "filtered": 176,
+        "workers": 12,
+        "time_s": 10.444,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2780,
+      "coverage_save_pct": 37.578,
+      "mu_min": 9.46322688832879e-05,
+      "mu_mean": 0.05486085265874863,
+      "mu_p05": 0.027824691124260427,
+      "mu_p50": 0.05978608876466751,
+      "mu_max": 0.06859999895095825,
+      "time_s": 532.666,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.44",
+      "height": 0.44,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2268,
+      "ik_solved_before_collision": 2923,
+      "wavefront": [
+        {
+          "ik_calls": 39891,
+          "new": 629,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2897
+        },
+        {
+          "ik_calls": 17820,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2899
+        },
+        {
+          "ik_calls": 34274,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2899
+        },
+        {
+          "ik_calls": 460410,
+          "new": 11,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2910
+        },
+        {
+          "ik_calls": 3136989,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2915
+        },
+        {
+          "ik_calls": 15514782,
+          "new": 3,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2918
+        },
+        {
+          "ik_calls": 26208712,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2923
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2923,
+        "filtered": 159,
+        "workers": 12,
+        "time_s": 6.413,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2764,
+      "coverage_save_pct": 37.361,
+      "mu_min": 8.486706792609766e-05,
+      "mu_mean": 0.05497952178120613,
+      "mu_p05": 0.028453944344073535,
+      "mu_p50": 0.05981310456991196,
+      "mu_max": 0.06860000640153885,
+      "time_s": 531.672,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.45",
+      "height": 0.45,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2252,
+      "ik_solved_before_collision": 2901,
+      "wavefront": [
+        {
+          "ik_calls": 39723,
+          "new": 625,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2877
+        },
+        {
+          "ik_calls": 17712,
+          "new": 5,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2882
+        },
+        {
+          "ik_calls": 34074,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2882
+        },
+        {
+          "ik_calls": 457745,
+          "new": 9,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2891
+        },
+        {
+          "ik_calls": 3122162,
+          "new": 2,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2893
+        },
+        {
+          "ik_calls": 15471690,
+          "new": 4,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2897
+        },
+        {
+          "ik_calls": 26152549,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2901
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2901,
+        "filtered": 147,
+        "workers": 12,
+        "time_s": 8.487,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2754,
+      "coverage_save_pct": 37.226,
+      "mu_min": 5.755987876909785e-05,
+      "mu_mean": 0.054936327040195465,
+      "mu_p05": 0.029004150349646807,
+      "mu_p50": 0.05986658111214638,
+      "mu_max": 0.06860002130270004,
+      "time_s": 540.015,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.46",
+      "height": 0.46,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2232,
+      "ik_solved_before_collision": 2878,
+      "wavefront": [
+        {
+          "ik_calls": 39424,
+          "new": 625,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2857
+        },
+        {
+          "ik_calls": 17752,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2859
+        },
+        {
+          "ik_calls": 68226,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2860
+        },
+        {
+          "ik_calls": 457784,
+          "new": 8,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2868
+        },
+        {
+          "ik_calls": 3114506,
+          "new": 2,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2870
+        },
+        {
+          "ik_calls": 15437512,
+          "new": 3,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2873
+        },
+        {
+          "ik_calls": 26076318,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2878
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2878,
+        "filtered": 134,
+        "workers": 12,
+        "time_s": 8.921,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2744,
+      "coverage_save_pct": 37.091,
+      "mu_min": 0.0002142460289178416,
+      "mu_mean": 0.0549197755753994,
+      "mu_p05": 0.02857135282829404,
+      "mu_p50": 0.059819215908646584,
+      "mu_max": 0.06860000640153885,
+      "time_s": 541.852,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.47",
+      "height": 0.47,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 2214,
+      "ik_solved_before_collision": 2862,
+      "wavefront": [
+        {
+          "ik_calls": 39067,
+          "new": 614,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2828
+        },
+        {
+          "ik_calls": 35340,
+          "new": 4,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2832
+        },
+        {
+          "ik_calls": 68277,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2834
+        },
+        {
+          "ik_calls": 686473,
+          "new": 10,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2844
+        },
+        {
+          "ik_calls": 3107849,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2848
+        },
+        {
+          "ik_calls": 15418053,
+          "new": 10,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2858
+        },
+        {
+          "ik_calls": 26019536,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2862
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2862,
+        "filtered": 124,
+        "workers": 12,
+        "time_s": 6.237,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2738,
+      "coverage_save_pct": 37.01,
+      "mu_min": 0.00019817639258690178,
+      "mu_mean": 0.05475136637687683,
+      "mu_p05": 0.026834409777075054,
+      "mu_p50": 0.059813765808939934,
+      "mu_max": 0.06860000640153885,
+      "time_s": 546.059,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.48",
+      "height": 0.48,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 2191,
+      "ik_solved_before_collision": 2828,
+      "wavefront": [
+        {
+          "ik_calls": 41852,
+          "new": 610,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2801
+        },
+        {
+          "ik_calls": 17600,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2803
+        },
+        {
+          "ik_calls": 67862,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2804
+        },
+        {
+          "ik_calls": 455092,
+          "new": 8,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2812
+        },
+        {
+          "ik_calls": 3093909,
+          "new": 3,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2815
+        },
+        {
+          "ik_calls": 15364069,
+          "new": 7,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2822
+        },
+        {
+          "ik_calls": 25906866,
+          "new": 6,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2828
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2828,
+        "filtered": 109,
+        "workers": 12,
+        "time_s": 6.378,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2719,
+      "coverage_save_pct": 36.753,
+      "mu_min": 0.00031204448896460235,
+      "mu_mean": 0.0548650287091732,
+      "mu_p05": 0.027623213827610016,
+      "mu_p50": 0.05979553610086441,
+      "mu_max": 0.06859998404979706,
+      "time_s": 540.604,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.49",
+      "height": 0.49,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2175,
+      "ik_solved_before_collision": 2802,
+      "wavefront": [
+        {
+          "ik_calls": 41917,
+          "new": 606,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2781
+        },
+        {
+          "ik_calls": 8838,
+          "new": 0,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2781
+        },
+        {
+          "ik_calls": 68062,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2782
+        },
+        {
+          "ik_calls": 455501,
+          "new": 7,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2789
+        },
+        {
+          "ik_calls": 3084300,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2793
+        },
+        {
+          "ik_calls": 15321453,
+          "new": 4,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2797
+        },
+        {
+          "ik_calls": 25825620,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2802
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2802,
+        "filtered": 98,
+        "workers": 12,
+        "time_s": 6.127,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2704,
+      "coverage_save_pct": 36.55,
+      "mu_min": 2.5394158001290634e-05,
+      "mu_mean": 0.0549846813082695,
+      "mu_p05": 0.028304522950202228,
+      "mu_p50": 0.05981805361807346,
+      "mu_max": 0.06859999895095825,
+      "time_s": 527.948,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.50",
+      "height": 0.5,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2156,
+      "ik_solved_before_collision": 2781,
+      "wavefront": [
+        {
+          "ik_calls": 41645,
+          "new": 596,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2752
+        },
+        {
+          "ik_calls": 17654,
+          "new": 5,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2757
+        },
+        {
+          "ik_calls": 67828,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2759
+        },
+        {
+          "ik_calls": 452851,
+          "new": 5,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2764
+        },
+        {
+          "ik_calls": 3071652,
+          "new": 3,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2767
+        },
+        {
+          "ik_calls": 15281455,
+          "new": 7,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2774
+        },
+        {
+          "ik_calls": 25745312,
+          "new": 7,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2781
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2781,
+        "filtered": 85,
+        "workers": 12,
+        "time_s": 7.541,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2696,
+      "coverage_save_pct": 36.442,
+      "mu_min": 1.4621894479205366e-05,
+      "mu_mean": 0.054883044213056564,
+      "mu_p05": 0.02799338148906827,
+      "mu_p50": 0.05982056073844433,
+      "mu_max": 0.06859999895095825,
+      "time_s": 535.16,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.51",
+      "height": 0.51,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2139,
+      "ik_solved_before_collision": 2754,
+      "wavefront": [
+        {
+          "ik_calls": 41471,
+          "new": 591,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2730
+        },
+        {
+          "ik_calls": 17618,
+          "new": 4,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2734
+        },
+        {
+          "ik_calls": 67696,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2735
+        },
+        {
+          "ik_calls": 452218,
+          "new": 6,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2741
+        },
+        {
+          "ik_calls": 3061633,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2745
+        },
+        {
+          "ik_calls": 15232973,
+          "new": 6,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2751
+        },
+        {
+          "ik_calls": 25654901,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2754
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2754,
+        "filtered": 70,
+        "workers": 12,
+        "time_s": 6.508,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2684,
+      "coverage_save_pct": 36.28,
+      "mu_min": 5.358543057809584e-05,
+      "mu_mean": 0.05493390932679176,
+      "mu_p05": 0.02871687477454543,
+      "mu_p50": 0.05983509495854378,
+      "mu_max": 0.06860001385211945,
+      "time_s": 534.928,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.52",
+      "height": 0.52,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2124,
+      "ik_solved_before_collision": 2732,
+      "wavefront": [
+        {
+          "ik_calls": 44113,
+          "new": 580,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2704
+        },
+        {
+          "ik_calls": 26405,
+          "new": 7,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2711
+        },
+        {
+          "ik_calls": 67816,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2713
+        },
+        {
+          "ik_calls": 451481,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2716
+        },
+        {
+          "ik_calls": 3046575,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2720
+        },
+        {
+          "ik_calls": 15179769,
+          "new": 10,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2730
+        },
+        {
+          "ik_calls": 25573864,
+          "new": 2,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2732
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2732,
+        "filtered": 61,
+        "workers": 12,
+        "time_s": 6.202,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2671,
+      "coverage_save_pct": 36.104,
+      "mu_min": 9.561041224515066e-05,
+      "mu_mean": 0.05496561527252197,
+      "mu_p05": 0.029181616380810738,
+      "mu_p50": 0.05976494029164314,
+      "mu_max": 0.06859999895095825,
+      "time_s": 546.464,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.53",
+      "height": 0.53,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2109,
+      "ik_solved_before_collision": 2708,
+      "wavefront": [
+        {
+          "ik_calls": 44111,
+          "new": 574,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2683
+        },
+        {
+          "ik_calls": 17474,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2686
+        },
+        {
+          "ik_calls": 67288,
+          "new": 3,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2689
+        },
+        {
+          "ik_calls": 448352,
+          "new": 2,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2691
+        },
+        {
+          "ik_calls": 3028031,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2696
+        },
+        {
+          "ik_calls": 15112936,
+          "new": 6,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2702
+        },
+        {
+          "ik_calls": 25469169,
+          "new": 6,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2708
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2708,
+        "filtered": 49,
+        "workers": 12,
+        "time_s": 6.017,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2659,
+      "coverage_save_pct": 35.942,
+      "mu_min": 2.950392445200123e-05,
+      "mu_mean": 0.05495916306972504,
+      "mu_p05": 0.029326539300382138,
+      "mu_p50": 0.059837039560079575,
+      "mu_max": 0.06859999895095825,
+      "time_s": 510.411,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.54",
+      "height": 0.54,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2087,
+      "ik_solved_before_collision": 2684,
+      "wavefront": [
+        {
+          "ik_calls": 43911,
+          "new": 572,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2659
+        },
+        {
+          "ik_calls": 17568,
+          "new": 4,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2663
+        },
+        {
+          "ik_calls": 67391,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2665
+        },
+        {
+          "ik_calls": 447922,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2668
+        },
+        {
+          "ik_calls": 3020499,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2673
+        },
+        {
+          "ik_calls": 15072657,
+          "new": 8,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2681
+        },
+        {
+          "ik_calls": 25376596,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2684
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2684,
+        "filtered": 40,
+        "workers": 12,
+        "time_s": 6.43,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2644,
+      "coverage_save_pct": 35.739,
+      "mu_min": 9.7695279691834e-05,
+      "mu_mean": 0.054937947541475296,
+      "mu_p05": 0.028855431359261274,
+      "mu_p50": 0.0597023069858551,
+      "mu_max": 0.06860000640153885,
+      "time_s": 533.242,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.55",
+      "height": 0.55,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2078,
+      "ik_solved_before_collision": 2666,
+      "wavefront": [
+        {
+          "ik_calls": 46954,
+          "new": 568,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2646
+        },
+        {
+          "ik_calls": 17540,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2649
+        },
+        {
+          "ik_calls": 67406,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2651
+        },
+        {
+          "ik_calls": 447908,
+          "new": 2,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2653
+        },
+        {
+          "ik_calls": 3015818,
+          "new": 6,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2659
+        },
+        {
+          "ik_calls": 15040267,
+          "new": 4,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2663
+        },
+        {
+          "ik_calls": 25300799,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2666
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2666,
+        "filtered": 41,
+        "workers": 12,
+        "time_s": 5.972,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2625,
+      "coverage_save_pct": 35.483,
+      "mu_min": 0.00016907027747947723,
+      "mu_mean": 0.05489306524395943,
+      "mu_p05": 0.028588740900158883,
+      "mu_p50": 0.059690047055482864,
+      "mu_max": 0.06860000640153885,
+      "time_s": 535.632,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.56",
+      "height": 0.56,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2064,
+      "ik_solved_before_collision": 2647,
+      "wavefront": [
+        {
+          "ik_calls": 43684,
+          "new": 559,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2623
+        },
+        {
+          "ik_calls": 17514,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2626
+        },
+        {
+          "ik_calls": 67318,
+          "new": 3,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2629
+        },
+        {
+          "ik_calls": 446538,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2632
+        },
+        {
+          "ik_calls": 2999241,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2636
+        },
+        {
+          "ik_calls": 14984858,
+          "new": 7,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2643
+        },
+        {
+          "ik_calls": 25221155,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2647
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2647,
+        "filtered": 36,
+        "workers": 12,
+        "time_s": 6.074,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2611,
+      "coverage_save_pct": 35.293,
+      "mu_min": 4.0290684410138056e-05,
+      "mu_mean": 0.054869893938302994,
+      "mu_p05": 0.028038613498210907,
+      "mu_p50": 0.05971277877688408,
+      "mu_max": 0.06860000640153885,
+      "time_s": 523.27,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.57",
+      "height": 0.57,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 2048,
+      "ik_solved_before_collision": 2623,
+      "wavefront": [
+        {
+          "ik_calls": 46273,
+          "new": 555,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2603
+        },
+        {
+          "ik_calls": 17490,
+          "new": 5,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2608
+        },
+        {
+          "ik_calls": 67282,
+          "new": 5,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2613
+        },
+        {
+          "ik_calls": 445838,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2616
+        },
+        {
+          "ik_calls": 2992630,
+          "new": 1,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2617
+        },
+        {
+          "ik_calls": 14929101,
+          "new": 1,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2618
+        },
+        {
+          "ik_calls": 25111532,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2623
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2623,
+        "filtered": 33,
+        "workers": 12,
+        "time_s": 5.964,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2590,
+      "coverage_save_pct": 35.009,
+      "mu_min": 4.2486681195441633e-05,
+      "mu_mean": 0.054868414998054504,
+      "mu_p05": 0.028250093292444947,
+      "mu_p50": 0.05960352532565594,
+      "mu_max": 0.06860000640153885,
+      "time_s": 519.95,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.58",
+      "height": 0.58,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 2036,
+      "ik_solved_before_collision": 2606,
+      "wavefront": [
+        {
+          "ik_calls": 46141,
+          "new": 546,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2582
+        },
+        {
+          "ik_calls": 17520,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2585
+        },
+        {
+          "ik_calls": 67314,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2587
+        },
+        {
+          "ik_calls": 445452,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2590
+        },
+        {
+          "ik_calls": 2982923,
+          "new": 3,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2593
+        },
+        {
+          "ik_calls": 14885906,
+          "new": 12,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2605
+        },
+        {
+          "ik_calls": 25039084,
+          "new": 1,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2606
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2606,
+        "filtered": 30,
+        "workers": 12,
+        "time_s": 5.838,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2576,
+      "coverage_save_pct": 34.82,
+      "mu_min": 7.536544580943882e-05,
+      "mu_mean": 0.05486081913113594,
+      "mu_p05": 0.02880868874490261,
+      "mu_p50": 0.05964432284235954,
+      "mu_max": 0.06860000640153885,
+      "time_s": 521.619,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.59",
+      "height": 0.59,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2023,
+      "ik_solved_before_collision": 2591,
+      "wavefront": [
+        {
+          "ik_calls": 49275,
+          "new": 542,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2565
+        },
+        {
+          "ik_calls": 17634,
+          "new": 6,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2571
+        },
+        {
+          "ik_calls": 67370,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2572
+        },
+        {
+          "ik_calls": 444044,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2575
+        },
+        {
+          "ik_calls": 2966921,
+          "new": 6,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2581
+        },
+        {
+          "ik_calls": 14819969,
+          "new": 5,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2586
+        },
+        {
+          "ik_calls": 24976693,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2591
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2591,
+        "filtered": 27,
+        "workers": 12,
+        "time_s": 6.181,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2564,
+      "coverage_save_pct": 34.658,
+      "mu_min": 0.00010917879990302026,
+      "mu_mean": 0.05481146275997162,
+      "mu_p05": 0.028936642967164517,
+      "mu_p50": 0.059502698481082916,
+      "mu_max": 0.06860002130270004,
+      "time_s": 528.47,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.60",
+      "height": 0.6,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2010,
+      "ik_solved_before_collision": 2574,
+      "wavefront": [
+        {
+          "ik_calls": 45940,
+          "new": 536,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2546
+        },
+        {
+          "ik_calls": 17590,
+          "new": 4,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2550
+        },
+        {
+          "ik_calls": 67376,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2551
+        },
+        {
+          "ik_calls": 443156,
+          "new": 4,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2555
+        },
+        {
+          "ik_calls": 2955334,
+          "new": 6,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2561
+        },
+        {
+          "ik_calls": 14762862,
+          "new": 9,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2570
+        },
+        {
+          "ik_calls": 24888153,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2574
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2574,
+        "filtered": 23,
+        "workers": 12,
+        "time_s": 5.925,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2551,
+      "coverage_save_pct": 34.482,
+      "mu_min": 0.00017916336946655065,
+      "mu_mean": 0.05473030358552933,
+      "mu_p05": 0.027989262714982033,
+      "mu_p50": 0.05946438014507294,
+      "mu_max": 0.06860000640153885,
+      "time_s": 521.665,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.61",
+      "height": 0.61,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2003,
+      "ik_solved_before_collision": 2560,
+      "wavefront": [
+        {
+          "ik_calls": 46163,
+          "new": 531,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2534
+        },
+        {
+          "ik_calls": 17596,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2537
+        },
+        {
+          "ik_calls": 67394,
+          "new": 5,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2542
+        },
+        {
+          "ik_calls": 443500,
+          "new": 2,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2544
+        },
+        {
+          "ik_calls": 2956049,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2548
+        },
+        {
+          "ik_calls": 14731378,
+          "new": 9,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2557
+        },
+        {
+          "ik_calls": 24806961,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2560
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2560,
+        "filtered": 23,
+        "workers": 12,
+        "time_s": 5.771,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2537,
+      "coverage_save_pct": 34.293,
+      "mu_min": 1.0238033610221464e-05,
+      "mu_mean": 0.05460161343216896,
+      "mu_p05": 0.027064379304647446,
+      "mu_p50": 0.05943255499005318,
+      "mu_max": 0.06860001385211945,
+      "time_s": 520.304,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.62",
+      "height": 0.62,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1999,
+      "ik_solved_before_collision": 2545,
+      "wavefront": [
+        {
+          "ik_calls": 48938,
+          "new": 529,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2528
+        },
+        {
+          "ik_calls": 17658,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2530
+        },
+        {
+          "ik_calls": 67496,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2531
+        },
+        {
+          "ik_calls": 442940,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2534
+        },
+        {
+          "ik_calls": 2945543,
+          "new": 2,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2536
+        },
+        {
+          "ik_calls": 14682504,
+          "new": 8,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2544
+        },
+        {
+          "ik_calls": 24735154,
+          "new": 1,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2545
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2545,
+        "filtered": 23,
+        "workers": 12,
+        "time_s": 5.678,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2522,
+      "coverage_save_pct": 34.09,
+      "mu_min": 0.00022433574486058205,
+      "mu_mean": 0.054602522403001785,
+      "mu_p05": 0.027736812736839055,
+      "mu_p50": 0.059442365542054176,
+      "mu_max": 0.06860000640153885,
+      "time_s": 517.511,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.63",
+      "height": 0.63,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1990,
+      "ik_solved_before_collision": 2539,
+      "wavefront": [
+        {
+          "ik_calls": 48821,
+          "new": 525,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2515
+        },
+        {
+          "ik_calls": 17648,
+          "new": 4,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2519
+        },
+        {
+          "ik_calls": 67522,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2520
+        },
+        {
+          "ik_calls": 442904,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2523
+        },
+        {
+          "ik_calls": 2941291,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2527
+        },
+        {
+          "ik_calls": 14649752,
+          "new": 7,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2534
+        },
+        {
+          "ik_calls": 24694104,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2539
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2539,
+        "filtered": 24,
+        "workers": 12,
+        "time_s": 6.156,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2515,
+      "coverage_save_pct": 33.996,
+      "mu_min": 6.084563210606575e-06,
+      "mu_mean": 0.054534342139959335,
+      "mu_p05": 0.02704658079892397,
+      "mu_p50": 0.05937201529741287,
+      "mu_max": 0.06859999895095825,
+      "time_s": 518.113,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.64",
+      "height": 0.64,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1982,
+      "ik_solved_before_collision": 2527,
+      "wavefront": [
+        {
+          "ik_calls": 48849,
+          "new": 513,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2495
+        },
+        {
+          "ik_calls": 17714,
+          "new": 5,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2500
+        },
+        {
+          "ik_calls": 67452,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2501
+        },
+        {
+          "ik_calls": 440348,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2504
+        },
+        {
+          "ik_calls": 2922901,
+          "new": 3,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2507
+        },
+        {
+          "ik_calls": 21887262,
+          "new": 13,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2520
+        },
+        {
+          "ik_calls": 24627231,
+          "new": 7,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2527
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2527,
+        "filtered": 22,
+        "workers": 12,
+        "time_s": 5.828,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2505,
+      "coverage_save_pct": 33.861,
+      "mu_min": 1.7984280930249952e-05,
+      "mu_mean": 0.05443278327584267,
+      "mu_p05": 0.026846767589449882,
+      "mu_p50": 0.05930383503437042,
+      "mu_max": 0.06860000640153885,
+      "time_s": 607.139,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.65",
+      "height": 0.65,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1969,
+      "ik_solved_before_collision": 2505,
+      "wavefront": [
+        {
+          "ik_calls": 48796,
+          "new": 510,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2479
+        },
+        {
+          "ik_calls": 17646,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2482
+        },
+        {
+          "ik_calls": 33630,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2482
+        },
+        {
+          "ik_calls": 439750,
+          "new": 2,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2484
+        },
+        {
+          "ik_calls": 2917991,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2489
+        },
+        {
+          "ik_calls": 14540107,
+          "new": 11,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2500
+        },
+        {
+          "ik_calls": 24518198,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2505
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2505,
+        "filtered": 20,
+        "workers": 12,
+        "time_s": 5.708,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2485,
+      "coverage_save_pct": 33.59,
+      "mu_min": 0.00012409697228576988,
+      "mu_mean": 0.05453001335263252,
+      "mu_p05": 0.02716689296066761,
+      "mu_p50": 0.05926022678613663,
+      "mu_max": 0.06860002130270004,
+      "time_s": 529.506,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.66",
+      "height": 0.66,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1966,
+      "ik_solved_before_collision": 2488,
+      "wavefront": [
+        {
+          "ik_calls": 51593,
+          "new": 504,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2470
+        },
+        {
+          "ik_calls": 17568,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2473
+        },
+        {
+          "ik_calls": 33504,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2473
+        },
+        {
+          "ik_calls": 438104,
+          "new": 2,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2475
+        },
+        {
+          "ik_calls": 2909649,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2480
+        },
+        {
+          "ik_calls": 14492283,
+          "new": 4,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2484
+        },
+        {
+          "ik_calls": 24430411,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2488
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2488,
+        "filtered": 19,
+        "workers": 12,
+        "time_s": 5.894,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2469,
+      "coverage_save_pct": 33.374,
+      "mu_min": 0.00014054408529773355,
+      "mu_mean": 0.0545993447303772,
+      "mu_p05": 0.0281219057738781,
+      "mu_p50": 0.05924534797668457,
+      "mu_max": 0.06860000640153885,
+      "time_s": 526.153,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.67",
+      "height": 0.67,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1959,
+      "ik_solved_before_collision": 2480,
+      "wavefront": [
+        {
+          "ik_calls": 48530,
+          "new": 496,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2455
+        },
+        {
+          "ik_calls": 17558,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2458
+        },
+        {
+          "ik_calls": 66900,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2459
+        },
+        {
+          "ik_calls": 436683,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2462
+        },
+        {
+          "ik_calls": 2895374,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2466
+        },
+        {
+          "ik_calls": 14437080,
+          "new": 8,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2474
+        },
+        {
+          "ik_calls": 24387713,
+          "new": 6,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2480
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2480,
+        "filtered": 17,
+        "workers": 12,
+        "time_s": 5.916,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2463,
+      "coverage_save_pct": 33.293,
+      "mu_min": 0.00014813127927482128,
+      "mu_mean": 0.05452653765678406,
+      "mu_p05": 0.02825105730444193,
+      "mu_p50": 0.05932324752211571,
+      "mu_max": 0.06860001385211945,
+      "time_s": 526.451,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.68",
+      "height": 0.68,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1957,
+      "ik_solved_before_collision": 2473,
+      "wavefront": [
+        {
+          "ik_calls": 45340,
+          "new": 489,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2446
+        },
+        {
+          "ik_calls": 17486,
+          "new": 4,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2450
+        },
+        {
+          "ik_calls": 66828,
+          "new": 3,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2453
+        },
+        {
+          "ik_calls": 436530,
+          "new": 6,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2459
+        },
+        {
+          "ik_calls": 2889284,
+          "new": 2,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2461
+        },
+        {
+          "ik_calls": 14403018,
+          "new": 8,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2469
+        },
+        {
+          "ik_calls": 24347023,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2473
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2473,
+        "filtered": 18,
+        "workers": 12,
+        "time_s": 5.971,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2455,
+      "coverage_save_pct": 33.185,
+      "mu_min": 3.25607652484905e-05,
+      "mu_mean": 0.05450018122792244,
+      "mu_p05": 0.027747743390500547,
+      "mu_p50": 0.059229131788015366,
+      "mu_max": 0.06860001385211945,
+      "time_s": 500.718,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.69",
+      "height": 0.69,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 1948,
+      "ik_solved_before_collision": 2462,
+      "wavefront": [
+        {
+          "ik_calls": 51453,
+          "new": 488,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2436
+        },
+        {
+          "ik_calls": 17454,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2438
+        },
+        {
+          "ik_calls": 66690,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2440
+        },
+        {
+          "ik_calls": 435870,
+          "new": 6,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2446
+        },
+        {
+          "ik_calls": 2885951,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2451
+        },
+        {
+          "ik_calls": 14363386,
+          "new": 8,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2459
+        },
+        {
+          "ik_calls": 24281943,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2462
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2462,
+        "filtered": 15,
+        "workers": 12,
+        "time_s": 5.661,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2447,
+      "coverage_save_pct": 33.077,
+      "mu_min": 0.0002941974380519241,
+      "mu_mean": 0.05450141429901123,
+      "mu_p05": 0.02740637231618166,
+      "mu_p50": 0.05931083858013153,
+      "mu_max": 0.06860002130270004,
+      "time_s": 501.99,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.70",
+      "height": 0.7,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 1940,
+      "ik_solved_before_collision": 2446,
+      "wavefront": [
+        {
+          "ik_calls": 47978,
+          "new": 481,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2421
+        },
+        {
+          "ik_calls": 17542,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2424
+        },
+        {
+          "ik_calls": 66878,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2426
+        },
+        {
+          "ik_calls": 435844,
+          "new": 5,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2431
+        },
+        {
+          "ik_calls": 2879202,
+          "new": 3,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2434
+        },
+        {
+          "ik_calls": 14316356,
+          "new": 7,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2441
+        },
+        {
+          "ik_calls": 24190763,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2446
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2446,
+        "filtered": 13,
+        "workers": 12,
+        "time_s": 6.004,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2433,
+      "coverage_save_pct": 32.887,
+      "mu_min": 0.00018393874051980674,
+      "mu_mean": 0.05461070314049721,
+      "mu_p05": 0.027606948092579842,
+      "mu_p50": 0.05951368063688278,
+      "mu_max": 0.06860001385211945,
+      "time_s": 502.337,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.71",
+      "height": 0.71,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 1936,
+      "ik_solved_before_collision": 2437,
+      "wavefront": [
+        {
+          "ik_calls": 47894,
+          "new": 480,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2416
+        },
+        {
+          "ik_calls": 17572,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2418
+        },
+        {
+          "ik_calls": 66970,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2419
+        },
+        {
+          "ik_calls": 435690,
+          "new": 6,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2425
+        },
+        {
+          "ik_calls": 2873174,
+          "new": 3,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2428
+        },
+        {
+          "ik_calls": 14280649,
+          "new": 6,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2434
+        },
+        {
+          "ik_calls": 24144165,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2437
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2437,
+        "filtered": 12,
+        "workers": 12,
+        "time_s": 5.852,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2425,
+      "coverage_save_pct": 32.779,
+      "mu_min": 0.00011245332279941067,
+      "mu_mean": 0.05458961799740791,
+      "mu_p05": 0.027632931619882582,
+      "mu_p50": 0.059356484562158585,
+      "mu_max": 0.06859999895095825,
+      "time_s": 511.651,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.72",
+      "height": 0.72,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1947,
+      "ik_solved_before_collision": 2445,
+      "wavefront": [
+        {
+          "ik_calls": 48120,
+          "new": 470,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2417
+        },
+        {
+          "ik_calls": 17640,
+          "new": 4,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2421
+        },
+        {
+          "ik_calls": 67100,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2422
+        },
+        {
+          "ik_calls": 654356,
+          "new": 10,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2432
+        },
+        {
+          "ik_calls": 2873843,
+          "new": 3,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2435
+        },
+        {
+          "ik_calls": 14271391,
+          "new": 7,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2442
+        },
+        {
+          "ik_calls": 24161940,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2445
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2445,
+        "filtered": 12,
+        "workers": 12,
+        "time_s": 7.33,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2433,
+      "coverage_save_pct": 32.887,
+      "mu_min": 6.242243216547649e-06,
+      "mu_mean": 0.054269298911094666,
+      "mu_p05": 0.02539863735437393,
+      "mu_p50": 0.0591755136847496,
+      "mu_max": 0.06860000640153885,
+      "time_s": 509.07,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.73",
+      "height": 0.73,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1945,
+      "ik_solved_before_collision": 2441,
+      "wavefront": [
+        {
+          "ik_calls": 48440,
+          "new": 465,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2410
+        },
+        {
+          "ik_calls": 17704,
+          "new": 1,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2411
+        },
+        {
+          "ik_calls": 67152,
+          "new": 3,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2414
+        },
+        {
+          "ik_calls": 435318,
+          "new": 8,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2422
+        },
+        {
+          "ik_calls": 2864918,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2426
+        },
+        {
+          "ik_calls": 14230459,
+          "new": 12,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2438
+        },
+        {
+          "ik_calls": 24118195,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2441
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2441,
+        "filtered": 13,
+        "workers": 12,
+        "time_s": 6.331,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2428,
+      "coverage_save_pct": 32.82,
+      "mu_min": 0.00010653016215655953,
+      "mu_mean": 0.05425061285495758,
+      "mu_p05": 0.02575821867212653,
+      "mu_p50": 0.0591970831155777,
+      "mu_max": 0.06859999895095825,
+      "time_s": 499.718,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.74",
+      "height": 0.74,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1948,
+      "ik_solved_before_collision": 2439,
+      "wavefront": [
+        {
+          "ik_calls": 48254,
+          "new": 459,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2407
+        },
+        {
+          "ik_calls": 17654,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2410
+        },
+        {
+          "ik_calls": 100840,
+          "new": 3,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2413
+        },
+        {
+          "ik_calls": 435719,
+          "new": 9,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2422
+        },
+        {
+          "ik_calls": 2859574,
+          "new": 2,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2424
+        },
+        {
+          "ik_calls": 14202340,
+          "new": 13,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2437
+        },
+        {
+          "ik_calls": 24102912,
+          "new": 2,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2439
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2439,
+        "filtered": 11,
+        "workers": 12,
+        "time_s": 5.923,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2428,
+      "coverage_save_pct": 32.82,
+      "mu_min": 0.00015016336692497134,
+      "mu_mean": 0.05428903549909592,
+      "mu_p05": 0.02651644153520465,
+      "mu_p50": 0.05917898565530777,
+      "mu_max": 0.06859998404979706,
+      "time_s": 500.928,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.75",
+      "height": 0.75,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1941,
+      "ik_solved_before_collision": 2423,
+      "wavefront": [
+        {
+          "ik_calls": 48310,
+          "new": 454,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2395
+        },
+        {
+          "ik_calls": 17642,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2397
+        },
+        {
+          "ik_calls": 67020,
+          "new": 2,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2399
+        },
+        {
+          "ik_calls": 435189,
+          "new": 11,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2410
+        },
+        {
+          "ik_calls": 2861615,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2415
+        },
+        {
+          "ik_calls": 14169631,
+          "new": 7,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2422
+        },
+        {
+          "ik_calls": 23994849,
+          "new": 1,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2423
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2423,
+        "filtered": 9,
+        "workers": 12,
+        "time_s": 5.725,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2414,
+      "coverage_save_pct": 32.63,
+      "mu_min": 5.523900836124085e-05,
+      "mu_mean": 0.054285090416669846,
+      "mu_p05": 0.025924351811409,
+      "mu_p50": 0.05926915816962719,
+      "mu_max": 0.06859999150037766,
+      "time_s": 504.362,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.76",
+      "height": 0.76,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1942,
+      "ik_solved_before_collision": 2425,
+      "wavefront": [
+        {
+          "ik_calls": 51743,
+          "new": 460,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2402
+        },
+        {
+          "ik_calls": 17746,
+          "new": 1,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2403
+        },
+        {
+          "ik_calls": 67238,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2404
+        },
+        {
+          "ik_calls": 435715,
+          "new": 9,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2413
+        },
+        {
+          "ik_calls": 2859779,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2417
+        },
+        {
+          "ik_calls": 14157457,
+          "new": 5,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2422
+        },
+        {
+          "ik_calls": 23993056,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2425
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2425,
+        "filtered": 10,
+        "workers": 12,
+        "time_s": 5.684,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2415,
+      "coverage_save_pct": 32.644,
+      "mu_min": 3.765636938624084e-05,
+      "mu_mean": 0.054245103150606155,
+      "mu_p05": 0.025954861752688886,
+      "mu_p50": 0.05931757017970085,
+      "mu_max": 0.06860000640153885,
+      "time_s": 498.006,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.77",
+      "height": 0.77,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1942,
+      "ik_solved_before_collision": 2415,
+      "wavefront": [
+        {
+          "ik_calls": 51585,
+          "new": 442,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2384
+        },
+        {
+          "ik_calls": 17716,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2387
+        },
+        {
+          "ik_calls": 67088,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2388
+        },
+        {
+          "ik_calls": 652106,
+          "new": 14,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2402
+        },
+        {
+          "ik_calls": 2853463,
+          "new": 2,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2404
+        },
+        {
+          "ik_calls": 14111818,
+          "new": 9,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2413
+        },
+        {
+          "ik_calls": 23924528,
+          "new": 2,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2415
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2415,
+        "filtered": 9,
+        "workers": 12,
+        "time_s": 5.918,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2406,
+      "coverage_save_pct": 32.522,
+      "mu_min": 0.00023318850435316563,
+      "mu_mean": 0.05437849834561348,
+      "mu_p05": 0.02658303128555417,
+      "mu_p50": 0.059357304126024246,
+      "mu_max": 0.06860000640153885,
+      "time_s": 502.775,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.78",
+      "height": 0.78,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1947,
+      "ik_solved_before_collision": 2422,
+      "wavefront": [
+        {
+          "ik_calls": 51753,
+          "new": 443,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2390
+        },
+        {
+          "ik_calls": 17772,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2392
+        },
+        {
+          "ik_calls": 33648,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2392
+        },
+        {
+          "ik_calls": 435162,
+          "new": 8,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2400
+        },
+        {
+          "ik_calls": 2852146,
+          "new": 7,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2407
+        },
+        {
+          "ik_calls": 14111486,
+          "new": 14,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2421
+        },
+        {
+          "ik_calls": 23941997,
+          "new": 1,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2422
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2422,
+        "filtered": 10,
+        "workers": 12,
+        "time_s": 5.531,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2412,
+      "coverage_save_pct": 32.603,
+      "mu_min": 0.00018952997925225645,
+      "mu_mean": 0.05433819442987442,
+      "mu_p05": 0.02585090333595872,
+      "mu_p50": 0.05925930477678776,
+      "mu_max": 0.06860000640153885,
+      "time_s": 496.871,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.79",
+      "height": 0.79,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1955,
+      "ik_solved_before_collision": 2418,
+      "wavefront": [
+        {
+          "ik_calls": 52146,
+          "new": 436,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2391
+        },
+        {
+          "ik_calls": 17910,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2393
+        },
+        {
+          "ik_calls": 67736,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2394
+        },
+        {
+          "ik_calls": 655226,
+          "new": 8,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2402
+        },
+        {
+          "ik_calls": 2853049,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2407
+        },
+        {
+          "ik_calls": 14070067,
+          "new": 7,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2414
+        },
+        {
+          "ik_calls": 23897916,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2418
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2418,
+        "filtered": 10,
+        "workers": 12,
+        "time_s": 5.732,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2408,
+      "coverage_save_pct": 32.549,
+      "mu_min": 4.781680036103353e-05,
+      "mu_mean": 0.05431710556149483,
+      "mu_p05": 0.026124481670558454,
+      "mu_p50": 0.0593049731105566,
+      "mu_max": 0.06859999895095825,
+      "time_s": 505.002,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.80",
+      "height": 0.8,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1950,
+      "ik_solved_before_collision": 2409,
+      "wavefront": [
+        {
+          "ik_calls": 52288,
+          "new": 431,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2381
+        },
+        {
+          "ik_calls": 17878,
+          "new": 1,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2382
+        },
+        {
+          "ik_calls": 33762,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2382
+        },
+        {
+          "ik_calls": 871174,
+          "new": 8,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2390
+        },
+        {
+          "ik_calls": 2847223,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2395
+        },
+        {
+          "ik_calls": 14051147,
+          "new": 14,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2409
+        },
+        {
+          "ik_calls": 11919894,
+          "new": 0,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2409
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2409,
+        "filtered": 10,
+        "workers": 12,
+        "time_s": 5.953,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2399,
+      "coverage_save_pct": 32.428,
+      "mu_min": 0.00014647794887423515,
+      "mu_mean": 0.054444268345832825,
+      "mu_p05": 0.025769687071442605,
+      "mu_p50": 0.05927017331123352,
+      "mu_max": 0.06860001385211945,
+      "time_s": 365.412,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.81",
+      "height": 0.81,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1956,
+      "ik_solved_before_collision": 2409,
+      "wavefront": [
+        {
+          "ik_calls": 52320,
+          "new": 425,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2381
+        },
+        {
+          "ik_calls": 17808,
+          "new": 4,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2385
+        },
+        {
+          "ik_calls": 33632,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2385
+        },
+        {
+          "ik_calls": 433538,
+          "new": 2,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2387
+        },
+        {
+          "ik_calls": 2837945,
+          "new": 10,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2397
+        },
+        {
+          "ik_calls": 14002142,
+          "new": 8,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2405
+        },
+        {
+          "ik_calls": 23782229,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2409
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2409,
+        "filtered": 10,
+        "workers": 12,
+        "time_s": 5.903,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2399,
+      "coverage_save_pct": 32.428,
+      "mu_min": 3.0640046588814585e-06,
+      "mu_mean": 0.05439859256148338,
+      "mu_p05": 0.026556653343141078,
+      "mu_p50": 0.05947178974747658,
+      "mu_max": 0.06860000640153885,
+      "time_s": 470.827,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.82",
+      "height": 0.82,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 1968,
+      "ik_solved_before_collision": 2406,
+      "wavefront": [
+        {
+          "ik_calls": 52418,
+          "new": 415,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2383
+        },
+        {
+          "ik_calls": 17876,
+          "new": 5,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2388
+        },
+        {
+          "ik_calls": 33720,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2388
+        },
+        {
+          "ik_calls": 434030,
+          "new": 1,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2389
+        },
+        {
+          "ik_calls": 2833713,
+          "new": 5,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2394
+        },
+        {
+          "ik_calls": 13957920,
+          "new": 8,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2402
+        },
+        {
+          "ik_calls": 23730496,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2406
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2406,
+        "filtered": 7,
+        "workers": 12,
+        "time_s": 5.602,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2399,
+      "coverage_save_pct": 32.428,
+      "mu_min": 0.0001070287253241986,
+      "mu_mean": 0.05456728860735893,
+      "mu_p05": 0.02756677158176899,
+      "mu_p50": 0.059392355382442474,
+      "mu_max": 0.06859999895095825,
+      "time_s": 476.656,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.83",
+      "height": 0.83,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 1979,
+      "ik_solved_before_collision": 2414,
+      "wavefront": [
+        {
+          "ik_calls": 49296,
+          "new": 406,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2385
+        },
+        {
+          "ik_calls": 17772,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2387
+        },
+        {
+          "ik_calls": 67326,
+          "new": 3,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2390
+        },
+        {
+          "ik_calls": 434202,
+          "new": 2,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2392
+        },
+        {
+          "ik_calls": 2830099,
+          "new": 7,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2399
+        },
+        {
+          "ik_calls": 13946799,
+          "new": 12,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2411
+        },
+        {
+          "ik_calls": 23742054,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2414
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2414,
+        "filtered": 8,
+        "workers": 12,
+        "time_s": 5.651,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2406,
+      "coverage_save_pct": 32.522,
+      "mu_min": 0.0003092814877163619,
+      "mu_mean": 0.05445975437760353,
+      "mu_p05": 0.027392342686653137,
+      "mu_p50": 0.0593840591609478,
+      "mu_max": 0.06860001385211945,
+      "time_s": 498.946,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.84",
+      "height": 0.84,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8764,
+      "phase_a_ik_calls": 8764,
+      "phase_a_solved": 1986,
+      "ik_solved_before_collision": 2414,
+      "wavefront": [
+        {
+          "ik_calls": 49162,
+          "new": 401,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2387
+        },
+        {
+          "ik_calls": 17778,
+          "new": 6,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2393
+        },
+        {
+          "ik_calls": 33620,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2393
+        },
+        {
+          "ik_calls": 433030,
+          "new": 2,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2395
+        },
+        {
+          "ik_calls": 2824756,
+          "new": 4,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2399
+        },
+        {
+          "ik_calls": 13915365,
+          "new": 11,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2410
+        },
+        {
+          "ik_calls": 23720232,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2414
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2414,
+        "filtered": 8,
+        "workers": 12,
+        "time_s": 5.477,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2406,
+      "coverage_save_pct": 32.522,
+      "mu_min": 9.520398634776939e-06,
+      "mu_mean": 0.05455717071890831,
+      "mu_p05": 0.027938129846006632,
+      "mu_p50": 0.05939120799303055,
+      "mu_max": 0.06860000640153885,
+      "time_s": 492.859,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.85",
+      "height": 0.85,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1989,
+      "ik_solved_before_collision": 2413,
+      "wavefront": [
+        {
+          "ik_calls": 49626,
+          "new": 405,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2394
+        },
+        {
+          "ik_calls": 17864,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2396
+        },
+        {
+          "ik_calls": 67342,
+          "new": 4,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2400
+        },
+        {
+          "ik_calls": 433643,
+          "new": 1,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2401
+        },
+        {
+          "ik_calls": 2828018,
+          "new": 1,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2402
+        },
+        {
+          "ik_calls": 13904008,
+          "new": 6,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2408
+        },
+        {
+          "ik_calls": 35534602,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2413
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2413,
+        "filtered": 9,
+        "workers": 12,
+        "time_s": 6.888,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2404,
+      "coverage_save_pct": 32.495,
+      "mu_min": 1.9755705125135137e-06,
+      "mu_mean": 0.05464369058609009,
+      "mu_p05": 0.027998854126781225,
+      "mu_p50": 0.059502970427274704,
+      "mu_max": 0.06860000640153885,
+      "time_s": 638.408,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.86",
+      "height": 0.86,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 1997,
+      "ik_solved_before_collision": 2410,
+      "wavefront": [
+        {
+          "ik_calls": 49896,
+          "new": 398,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2395
+        },
+        {
+          "ik_calls": 17930,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2397
+        },
+        {
+          "ik_calls": 33784,
+          "new": 0,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2397
+        },
+        {
+          "ik_calls": 217516,
+          "new": 0,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2397
+        },
+        {
+          "ik_calls": 2831728,
+          "new": 2,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2399
+        },
+        {
+          "ik_calls": 13891878,
+          "new": 8,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2407
+        },
+        {
+          "ik_calls": 35468456,
+          "new": 3,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2410
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2410,
+        "filtered": 9,
+        "workers": 12,
+        "time_s": 5.858,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2401,
+      "coverage_save_pct": 32.455,
+      "mu_min": 0.00013469054829329252,
+      "mu_mean": 0.054669082164764404,
+      "mu_p05": 0.027697915211319923,
+      "mu_p50": 0.05953279882669449,
+      "mu_max": 0.06860002130270004,
+      "time_s": 622.415,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37188
+    },
+    {
+      "tag": "0.87",
+      "height": 0.87,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2002,
+      "ik_solved_before_collision": 2412,
+      "wavefront": [
+        {
+          "ik_calls": 50216,
+          "new": 395,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2397
+        },
+        {
+          "ik_calls": 18034,
+          "new": 2,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2399
+        },
+        {
+          "ik_calls": 67928,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2400
+        },
+        {
+          "ik_calls": 436875,
+          "new": 3,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2403
+        },
+        {
+          "ik_calls": 2838496,
+          "new": 1,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2404
+        },
+        {
+          "ik_calls": 13888711,
+          "new": 6,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2410
+        },
+        {
+          "ik_calls": 23632131,
+          "new": 2,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2412
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2412,
+        "filtered": 8,
+        "workers": 12,
+        "time_s": 5.855,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2404,
+      "coverage_save_pct": 32.495,
+      "mu_min": 0.000216616244870238,
+      "mu_mean": 0.054739560931921005,
+      "mu_p05": 0.027542655169963837,
+      "mu_p50": 0.05947023257613182,
+      "mu_max": 0.06859998404979706,
+      "time_s": 554.933,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    },
+    {
+      "tag": "0.88",
+      "height": 0.88,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2013,
+      "ik_solved_before_collision": 2421,
+      "wavefront": [
+        {
+          "ik_calls": 50294,
+          "new": 386,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2399
+        },
+        {
+          "ik_calls": 18020,
+          "new": 3,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2402
+        },
+        {
+          "ik_calls": 67802,
+          "new": 4,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2406
+        },
+        {
+          "ik_calls": 436000,
+          "new": 1,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2407
+        },
+        {
+          "ik_calls": 1417084,
+          "new": 0,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2407
+        },
+        {
+          "ik_calls": 13861786,
+          "new": 9,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2416
+        },
+        {
+          "ik_calls": 23623011,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2421
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2421,
+        "filtered": 9,
+        "workers": 12,
+        "time_s": 6.107,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2412,
+      "coverage_save_pct": 32.603,
+      "mu_min": 2.784949538181536e-05,
+      "mu_mean": 0.05466636270284653,
+      "mu_p05": 0.026838680636137723,
+      "mu_p50": 0.05948568321764469,
+      "mu_max": 0.06860000640153885,
+      "time_s": 450.613,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37190
+    },
+    {
+      "tag": "0.89",
+      "height": 0.89,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2029,
+      "ik_solved_before_collision": 2430,
+      "wavefront": [
+        {
+          "ik_calls": 50662,
+          "new": 378,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2407
+        },
+        {
+          "ik_calls": 18100,
+          "new": 5,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2412
+        },
+        {
+          "ik_calls": 68136,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2413
+        },
+        {
+          "ik_calls": 437517,
+          "new": 2,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2415
+        },
+        {
+          "ik_calls": 2836675,
+          "new": 1,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2416
+        },
+        {
+          "ik_calls": 13844150,
+          "new": 9,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2425
+        },
+        {
+          "ik_calls": 23618279,
+          "new": 5,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2430
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2430,
+        "filtered": 8,
+        "workers": 12,
+        "time_s": 7.137,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2422,
+      "coverage_save_pct": 32.739,
+      "mu_min": 2.83116696664365e-05,
+      "mu_mean": 0.05449990928173065,
+      "mu_p05": 0.02640349343419075,
+      "mu_p50": 0.059414664283394814,
+      "mu_max": 0.06859998404979706,
+      "time_s": 335.758,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37185
+    },
+    {
+      "tag": "0.90",
+      "height": 0.9,
+      "target_y_fixed_m": 0.047,
+      "target_contact_x_m": 0.53,
+      "ee_goal_x_m": 0.4,
+      "tool_offset_m": 0.13,
+      "n_valid_workspace": 8765,
+      "phase_a_ik_calls": 8765,
+      "phase_a_solved": 2036,
+      "ik_solved_before_collision": 2435,
+      "wavefront": [
+        {
+          "ik_calls": 50724,
+          "new": 377,
+          "improved": 0,
+          "radius": 2,
+          "solved_after": 2413
+        },
+        {
+          "ik_calls": 18112,
+          "new": 5,
+          "improved": 0,
+          "radius": 3,
+          "solved_after": 2418
+        },
+        {
+          "ik_calls": 68106,
+          "new": 1,
+          "improved": 0,
+          "radius": 5,
+          "solved_after": 2419
+        },
+        {
+          "ik_calls": 437280,
+          "new": 1,
+          "improved": 0,
+          "radius": 10,
+          "solved_after": 2420
+        },
+        {
+          "ik_calls": 2834652,
+          "new": 1,
+          "improved": 0,
+          "radius": 20,
+          "solved_after": 2421
+        },
+        {
+          "ik_calls": 13837825,
+          "new": 10,
+          "improved": 0,
+          "radius": 40,
+          "solved_after": 2431
+        },
+        {
+          "ik_calls": 23616438,
+          "new": 4,
+          "improved": 0,
+          "radius": 60,
+          "solved_after": 2435
+        }
+      ],
+      "collision": {
+        "enabled": true,
+        "checked": 2435,
+        "filtered": 8,
+        "workers": 12,
+        "time_s": 7.156,
+        "skipped_reason": ""
+      },
+      "target_neighborhood_exclusion_enabled": false,
+      "exclusion_zeroed_cells": 0,
+      "valid_save_cells": 2427,
+      "coverage_save_pct": 32.806,
+      "mu_min": 0.00014128074690233916,
+      "mu_mean": 0.05459468439221382,
+      "mu_p05": 0.02634474113583565,
+      "mu_p50": 0.05952974781394005,
+      "mu_max": 0.06860001385211945,
+      "time_s": 332.092,
+      "resolution_m": 0.01,
+      "height_worker_pid": 37189
+    }
+  ]
+}
