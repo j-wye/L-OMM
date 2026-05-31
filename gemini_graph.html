@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L-OMM System Data Flow Graph</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --panel-bg: rgba(17, 24, 39, 0.75);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --color-ingress: #4b5563;
+      --color-perception: #a855f7;
+      --color-decision: #06b6d4;
+      --color-mapping: #10b981;
+      --color-planning: #f97316;
+      --color-execution: #ef4444;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Ambient background glows */
+    .bg-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0) 70%);
+      top: -200px;
+      left: -200px;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .bg-glow-right {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, rgba(6, 182, 212, 0) 70%);
+      bottom: -300px;
+      right: -200px;
+      z-index: -1;
+      pointer-events: none;
+    }
+    header {
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--panel-border);
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(16px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .brand-section h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      background: linear-gradient(to right, #818cf8, #06b6d4, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.2rem;
+    }
+    .brand-section p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 0.25rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--panel-border);
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.45rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .tab-btn.active {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    .layout-controls {
+      display: flex;
+      gap: 0.4rem;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 0.25rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--panel-border);
+    }
+    .action-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 0.45rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .action-btn.primary {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.3);
+      color: #a5b4fc;
+    }
+    .action-btn.primary:hover {
+      background: rgba(99, 102, 241, 0.25);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+    .main-container {
+      display: flex;
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Graph Visualizer Area */
+    .graph-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+    }
+    .graph-viewport:active {
+      cursor: grabbing;
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    /* SVG Elements Styling */
+    .node-rect {
+      rx: 10px;
+      ry: 10px;
+      stroke-width: 1.5px;
+      transition: stroke 0.3s, fill 0.3s;
+      cursor: grab;
+      fill: #0d1321;
+    }
+    .node-group {
+      cursor: grab;
+    }
+    .node-group:active, .node-group:active .node-rect {
+      cursor: grabbing !important;
+    }
+    .node-group:hover .node-rect {
+      filter: drop-shadow(0 4px 16px rgba(255, 255, 255, 0.06));
+    }
+    .node-group.active-highlight .node-rect {
+      stroke-width: 2.5px;
+      filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.08));
+    }
+    .node-title {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      fill: var(--text-main);
+      pointer-events: none;
+    }
+    .node-subtitle {
+      font-family: var(--font-sans);
+      font-size: 9.5px;
+      fill: var(--text-muted);
+      pointer-events: none;
+    }
+    .node-badge {
+      rx: 3px;
+      ry: 3px;
+      pointer-events: none;
+    }
+    .node-badge-text {
+      font-family: var(--font-sans);
+      font-size: 7.5px;
+      font-weight: 700;
+      fill: #fff;
+      pointer-events: none;
+      text-anchor: middle;
+    }
+    .edge-line {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.1);
+      stroke-width: 1.5px;
+      transition: stroke 0.3s, stroke-width 0.3s;
+      pointer-events: stroke;
+      cursor: pointer;
+    }
+    .edge-line:hover {
+      stroke: rgba(255, 255, 255, 0.4) !important;
+      stroke-width: 2.5px !important;
+    }
+    .edge-text-bg {
+      fill: #0b0f19;
+      stroke: rgba(255, 255, 255, 0.15);
+      stroke-width: 0.75px;
+      opacity: 0.95;
+      rx: 4px;
+      ry: 4px;
+      pointer-events: none;
+    }
+    .edge-text {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      fill: var(--text-muted);
+      font-weight: 500;
+      pointer-events: none;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+    .flow-particle {
+      pointer-events: none;
+    }
+    /* Sidebar Details Panel */
+    .details-panel {
+      width: 420px;
+      background: var(--panel-bg);
+      border-left: 1px solid var(--panel-border);
+      backdrop-filter: blur(24px);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 100;
+    }
+    .details-panel.open {
+      transform: translateX(0);
+    }
+    .panel-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .panel-header h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+    .close-btn:hover {
+      color: var(--text-main);
+    }
+    .panel-content {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--panel-border);
+    }
+    .desc-box {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #d1d5db;
+    }
+    .io-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .io-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--panel-border);
+      border-radius: 0.375rem;
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .io-icon {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.1rem 0.3rem;
+      border-radius: 0.25rem;
+      text-transform: uppercase;
+    }
+    .io-icon.in {
+      background: rgba(59, 130, 246, 0.12);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+    }
+    .io-icon.out {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .io-name {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-main);
+    }
+    .tech-badge-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.2rem;
+    }
+    .tech-badge {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--panel-border);
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      padding: 0.2rem 0.45rem;
+      border-radius: 0.25rem;
+      font-family: var(--font-mono);
+    }
+    .algorithm-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--panel-border);
+      border-radius: 0.5rem;
+      padding: 0.85rem;
+      font-size: 0.82rem;
+    }
+    .algorithm-card h4 {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.35rem;
+    }
+    .algorithm-card p {
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    /* Zoom Controls */
+    .zoom-controls {
+      position: absolute;
+      bottom: 2rem;
+      left: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+    .zoom-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 0.5rem;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      color: var(--text-main);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(12px);
+      transition: all 0.2s;
+    }
+    .zoom-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .legend-panel {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      padding: 1rem;
+      border-radius: 0.75rem;
+      backdrop-filter: blur(12px);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* Collapse class when drawer is open to not overlap */
+    .legend-panel.collapsed {
+      transform: translateX(-430px);
+    }
+    .legend-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+    }
+    .legend-color {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+    /* Background Dimming for focus */
+    .dimmed {
+      opacity: 0.12 !important;
+    }
+    .highlight-focus {
+      opacity: 1 !important;
+      stroke-width: 2.2px !important;
+    }
+    .edge-highlight-focus {
+      stroke: var(--highlight-color) !important;
+      stroke-width: 2.2px !important;
+      opacity: 1 !important;
+    }
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 2rem;
+    }
+    .empty-state svg {
+      width: 44px;
+      height: 44px;
+      stroke: var(--text-muted);
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="bg-glow-right"></div>
+  <header>
+    <div class="brand-section">
+      <h1>L-OMM System Data Flow Graph</h1>
+      <p>기하학적/기능적 모듈 간 데이터 흐름 시각화 (자유 드래그 배치 & 저장 에디터 버전)</p>
+    </div>
+    <div class="header-actions">
+      <div class="tabs">
+        <button class="tab-btn active" data-flow="all">전체 흐름</button>
+        <button class="tab-btn" data-flow="perception-decision">인지-의사결정</button>
+        <button class="tab-btn" data-flow="mapping-planning">안전지도-경로계획</button>
+        <button class="tab-btn" data-flow="control-execution">제어-로봇실행</button>
+      </div>
+      <div class="layout-controls">
+        <button class="action-btn primary" id="save-layout-btn" title="현재 배치를 웹 브라우저 캐시(LocalStorage)에 임시 저장합니다.">💾 브라우저 저장</button>
+        <button class="action-btn" id="download-layout-btn" title="현재 드래그된 좌표가 코드에 영구 반영된 HTML 파일을 새로 생성하여 다운로드합니다.">📥 파일로 다운로드</button>
+        <button class="action-btn" id="reset-layout-btn" title="기본 좌표 배열 상태로 레이아웃을 리셋합니다.">🔄 위치 초기화</button>
+      </div>
+    </div>
+  </header>
+  <div class="main-container">
+    <!-- Graph visualizer -->
+    <div class="graph-viewport" id="viewport">
+      <svg id="canvas" viewBox="0 0 2550 850" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <!-- Arrow Markers for Edges -->
+          <marker id="arrow" viewBox="0 0 10 10" refX="24" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="rgba(255, 255, 255, 0.3)" />
+          </marker>
+          <marker id="arrow-highlight" viewBox="0 0 10 10" refX="24" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#00f2fe" />
+          </marker>
+        </defs>
+        <!-- Container for transforms -->
+        <g id="transform-group">
+          <!-- Edges Group -->
+          <g id="edges-layer"></g>
+          <!-- Flow Particles Group -->
+          <g id="particles-layer"></g>
+          <!-- Nodes Group -->
+          <g id="nodes-layer"></g>
+        </g>
+      </svg>
+    </div>
+    <!-- Right Drawer Detail Panel -->
+    <div class="details-panel" id="panel">
+      <div class="panel-header">
+        <h2 id="panel-title">모듈 상세 정보</h2>
+        <button class="close-btn" id="panel-close-btn">&times;</button>
+      </div>
+      <div class="panel-content" id="panel-content-area">
+        <div class="empty-state">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p>노드를 클릭하면 해당 모듈의 기능, 입력/출력 인터페이스 및 최적화 메커니즘을 확인할 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Zoom Controls -->
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="zoom-in">+</button>
+      <button class="zoom-btn" id="zoom-out">-</button>
+      <button class="zoom-btn" id="zoom-reset">&#8635;</button>
+    </div>
+    <!-- Legend Panel -->
+    <div class="legend-panel" id="legend">
+      <div class="legend-title">모듈 레이어 범례</div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: var(--color-ingress);"></div>
+        <span>센서 입력 및 프레임 전처리</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: var(--color-perception);"></div>
+        <span>시각 인지 신경망 레이어</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: var(--color-decision);"></div>
+        <span>실시간 기하학적 의사결정</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: var(--color-mapping);"></div>
+        <span>안전 복셀 맵 업데이트</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: var(--color-planning);"></div>
+        <span>모션 계획 및 조작성 제어</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: var(--color-execution);"></div>
+        <span>하드웨어 로봇 실행 감독</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Initial Layout Coordinates
+    const defaultNodes = {
+      camera_ingress: { x: 60, y: 150 },
+      transform_provider: { x: 60, y: 550 },
+      evidence_fusion: { x: 420, y: 80 },
+      bbox_detector: { x: 420, y: 230 },
+      mask_segmenter: { x: 420, y: 380 },
+      depth_regularizer: { x: 420, y: 530 },
+      backprojector: { x: 780, y: 305 },
+      pca_projector: { x: 780, y: 480 },
+      degeneracy_gate: { x: 1140, y: 230 },
+      grasp_selector: { x: 1140, y: 380 },
+      state_observer: { x: 1140, y: 550 },
+      target_generator: { x: 1500, y: 380 },
+      safety_supervisor: { x: 1500, y: 80 },
+      astar_planner: { x: 1860, y: 80 },
+      c2_smoother: { x: 1860, y: 260 },
+      dls_scheduler: { x: 1860, y: 440 },
+      dls_controller: { x: 1860, y: 620 },
+      execution_supervisor: { x: 2220, y: 80 },
+      artifact_bridge: { x: 2220, y: 380 }
+    };
+    const nodes = {
+      camera_ingress: {
+        id: 'camera_ingress',
+        title: '실시간 센서 전처리기',
+        subtitle: 'Camera Ingress & Preprocessor',
+        layer: 'ingress',
+        color: 'var(--color-ingress)',
+        x: defaultNodes.camera_ingress.x, y: defaultNodes.camera_ingress.y,
+        desc: 'RGB-D 카메라 하드웨어로부터 aligned RGB 이미지와 depth 맵을 수신 및 동기화합니다. 제어 주기에 늦어지지 않도록 스레드를 분리하고, 가장 최신의 단일 프레임만 버퍼에 유지(Overwrite)하여 지연 누적을 방지합니다.',
+        inputs: ['RealSense RGB-D Hardware Streams'],
+        outputs: ['RGB Image (uint8 BGR)', 'Aligned Depth Map', 'Camera Info (Camera K Matrix)'],
+        tech: ['ROS2 Executor Thread', 'Reentrant Callback Group', 'Latest-Frame Overwrite Policy'],
+        algo: {
+          name: '비동기 링 버퍼 기법',
+          desc: '메인 제어 루프의 프레임 요청과 하드웨어 프레임 수신 속도가 비동기일 때, 대기 큐(Queue)를 두지 않고 즉시 덮어쓰기(Overwrite)하여 제어 입력 지연을 항상 1프레임 미만으로 보장합니다.'
+        }
+      },
+      transform_provider: {
+        id: 'transform_provider',
+        title: '좌표계 동적 변환기',
+        subtitle: 'TF2 / Static Transform Provider',
+        layer: 'ingress',
+        color: 'var(--color-ingress)',
+        x: defaultNodes.transform_provider.x, y: defaultNodes.transform_provider.y,
+        desc: '로봇의 머니퓰레이터 베이스 프레임(Map)과 그리퍼 카메라 광학 프레임(Optical Frame) 사이의 실시간 기하 관계(coordinate transformation matrix)를 조회합니다. 오프라인 테스트를 위한 Static 변환 모드와 실로봇을 위한 Dynamic TF2 변환 조회를 자동 분기합니다.',
+        inputs: ['ROS2 TF2 Broadcast Trees'],
+        outputs: ['T_map_optical (4x4 Homogeneous Matrix)'],
+        tech: ['TF2 Listener', 'Coordinate Transformation Link', 'Dynamic Synchronization Gating'],
+        algo: {
+          name: '변환 이상치 차단 정책',
+          desc: 'TF2 조회 지연 또는 손실 발생 시 이전 값을 무비판적으로 사용하지 않고, 룩업 실패 판정을 내려 다운스트림에 안전 플래그를 미발행합니다. Identity matrix 등의 부적절한 fallback을 원천 차단합니다.'
+        }
+      },
+      evidence_fusion: {
+        id: 'evidence_fusion',
+        title: '로컬 기하 증거 융합기',
+        subtitle: 'Depth Evidence Fusion Layer',
+        layer: 'mapping',
+        color: 'var(--color-mapping)',
+        x: defaultNodes.evidence_fusion.x, y: defaultNodes.evidence_fusion.y,
+        desc: '로봇의 작동 가용 영역을 표현하는 복셀(Voxel) 지도상에, 실시간으로 수신되는 깊이 영상과 카메라 포즈를 투영하여 로컬 점유 격자 지도(Active Occupancy Map)를 실시간 업데이트합니다.',
+        inputs: ['Raw Depth Map', 'Camera Pose (T_map_optical)'],
+        outputs: ['Local Occupancy Grid Map (Active Map Snapshot)'],
+        tech: ['Octree/Voxel Data Structure', '3D Coordinate Projection', 'Probability Log-Odds Mapping'],
+        algo: {
+          name: 'Ray-Casting Space Occupancy Updating',
+          desc: '카메라 광학 원점부터 깊이 측정값 사이의 빈 공간(Free)과 측정점(Occupied)을 3D Ray-Casting 기법을 이용하여 실시간 베이지안 확률 필터로 갱신하여 융합 지도를 구축합니다.'
+        }
+      },
+      bbox_detector: {
+        id: 'bbox_detector',
+        title: '2D 경계 상자 검출기',
+        subtitle: '2D Bounding Box Detector (OWL-ViT)',
+        layer: 'perception',
+        color: 'var(--color-perception)',
+        x: defaultNodes.bbox_detector.x, y: defaultNodes.bbox_detector.y,
+        desc: '수신된 BGR 이미지와 텍스트 쿼리를 기반으로 타겟 물체의 2D Bounding Box와 검출 자신감(Confidence Score)을 실시간으로 추정합니다. FP16 가속 및 TensorRT 구조가 적용되어 있습니다.',
+        inputs: ['RGB Image (uint8 BGR)', 'Text Query String (e.g., "handle")'],
+        outputs: ['2D Bounding Box [x1, y1, x2, y2]', 'Detection Confidence Score'],
+        tech: ['TensorRT Engine', 'FP16 Inference Acceleration', 'Text Embedding Cache', 'CUDA Graph Replay'],
+        algo: {
+          name: 'CUDA Graph Deterministic Replay',
+          desc: '매 프레임 신경망 실행을 위한 CPU 커널 론치 오버헤드를 제로화하기 위해, 최초 1회 실행 흐름을 캡처한 CUDA Graph를 재플레이하여 Deterministic Scheduling을 실현합니다.'
+        }
+      },
+      mask_segmenter: {
+        id: 'mask_segmenter',
+        title: '화소 단위 마스크 세그멘테이터',
+        subtitle: 'Dense Mask Segmenter (SAM)',
+        layer: 'perception',
+        color: 'var(--color-perception)',
+        x: defaultNodes.mask_segmenter.x, y: defaultNodes.mask_segmenter.y,
+        desc: '검출된 Bounding Box 정보를 내부적으로 즉각 SAM 점프 포인트로 변환(Bridge Fusion)하고, 이미지 임베딩과 연계하여 타겟의 정확한 화소 단위 마스크 실루엣을 디코딩합니다.',
+        inputs: ['RGB Image (uint8 BGR)', '2D Bounding Box'],
+        outputs: ['Binary Mask (Object Silhouette)', 'Segmentation IoU Score'],
+        tech: ['Parallel CUDA Stream Orchestration', 'Bridge Fusion (0-allocation)', 'SAM Decoders'],
+        algo: {
+          name: 'Bridge Fusion (Zero-Allocation Bridge)',
+          desc: '2D 검출기의 BBox 출력 좌표를 SAM Dec의 포인트 텐서로 변환할 때, 호스트 메모리 할당(torch.stack) 없이 CUDA Graph 내부에서 직접 좌표 연산 메모리를 융합하여 Jitter를 완전히 거세합니다.'
+        }
+      },
+      depth_regularizer: {
+        id: 'depth_regularizer',
+        title: '깊이 정보 가이드 필터',
+        subtitle: 'Guided Depth Regularizer',
+        layer: 'decision',
+        color: 'var(--color-decision)',
+        x: defaultNodes.depth_regularizer.x, y: defaultNodes.depth_regularizer.y,
+        desc: '컬러(RGB) 영상의 고주파 에지(edge) 정보와 깊이 정보의 로컬 분산을 결합하여, 깊이 정보의 노이즈, 에지 블러 및 데이터가 누락된 홀(hole)을 정교하게 보간 및 스무딩합니다.',
+        inputs: ['RGB Image (uint8 BGR)', 'Aligned Depth Map'],
+        outputs: ['Guided Depth Map'],
+        tech: ['Local Guided Filtering', 'CUDA Vectorized Average Pooling', 'Edge-Preserving Filtering'],
+        algo: {
+          name: 'Edge-Preserving Local Regularization',
+          desc: '물체의 외곽 경계를 유지하면서 깊이 홀을 메우기 위해 $\\mathcal{O}(P k^2)$ 복잡도를 지닌 평균 풀링 커널을 CUDA 레벨에서 최적화하여 1ms 이하로 처리합니다.'
+        }
+      },
+      backprojector: {
+        id: 'backprojector',
+        title: '3D 공간 포인트 복원기',
+        subtitle: 'Mask-Guided 3D Backprojector',
+        layer: 'decision',
+        color: 'var(--color-decision)',
+        x: defaultNodes.backprojector.x, y: defaultNodes.backprojector.y,
+        desc: '정규화된 깊이 정보와 이진 마스크 영역을 카메라 내적 행렬(K)에 역투영하여 3D 공간 상의 원시 포인트 세트를 생성합니다. 이후 depth median 값을 구하고 허용 오차 이내의 점들만 통과시키는 Median Band Gate를 거칩니다.',
+        inputs: ['Guided Depth Map', 'Binary Mask', 'Camera Info (K Matrix)'],
+        outputs: ['Cleaned 3D Point Cloud'],
+        tech: ['GPU Vectorized Backprojection', 'Depth-Band Outlier Filter', 'Mask Leakage Gating'],
+        algo: {
+          name: 'Median Depth-Band Filtering',
+          desc: '세그멘테이션 마스크가 물체 경계를 벗어나 배경으로 새는 현상(Mask Leakage)을 방지하기 위해 물체 중앙부 깊이 중앙값(Median)을 기준 $\\pm \\delta_z$ 이외의 포인트를 일괄 탈락시킵니다.'
+        }
+      },
+      pca_projector: {
+        id: 'pca_projector',
+        title: '중력 정렬 2D PCA 투영기',
+        subtitle: 'Gravity-Aligned 2D PCA Projector',
+        layer: 'decision',
+        color: 'var(--color-decision)',
+        x: defaultNodes.pca_projector.x, y: defaultNodes.pca_projector.y,
+        desc: '3D 공간 포인트를 글로벌 중력 벡터(Gravity axis [0,0,1])에 수직인 2D 평면으로 사영합니다. 사영된 2D 분포에 대해 closed-form 공분산 연산을 거쳐 물체의 중심점과 기하학적 주축을 구합니다.',
+        inputs: ['Cleaned 3D Point Cloud', 'T_map_optical'],
+        outputs: ['Principal Axes (장축/단축)', 'Eigenvalues', 'Axis Confidence Score'],
+        tech: ['Weiszfeld Robust Median', 'Closed-Form 2D Covariance PCA', 'Gravity Vector Coordinate Rotation'],
+        algo: {
+          name: 'Weiszfeld Geometric Median Algorithm',
+          desc: '산술 평균(Arithmetic Mean)이 마스크 노이즈에 극히 약한 점을 보완하기 위해 L1 거리합을 최소화하는 Weiszfeld 알고리즘을 소수 반복 실행하여 극도로 강건한 3D 중심을 시드(Seed)로 확정합니다.'
+        }
+      },
+      degeneracy_gate: {
+        id: 'degeneracy_gate',
+        title: '퇴화 조건 히스테리시스 게이트',
+        subtitle: 'Degeneracy Hysteresis Gate',
+        layer: 'decision',
+        color: 'var(--color-decision)',
+        x: defaultNodes.degeneracy_gate.x, y: defaultNodes.degeneracy_gate.y,
+        desc: '원형 컵이나 구형 구체 등 장단축 구분이 모호한(Isotropic) 물체에서 Yaw의 노이즈성 떨림 및 90도 플립 현상을 방지합니다. 이중 문턱값(Hysteresis)을 이용해 퇴화 상태를 잠금(Lock)하여 이전의 안정한 방향을 유지시킵니다.',
+        inputs: ['Eigenvalues', 'Axis Confidence Score', 'Previous Grasp State'],
+        outputs: ['Degeneracy Flag (Lock/Unlock Yaw State)'],
+        tech: ['Symmetric footprint Detector', 'Anisotropy Indexing', 'Dual-Threshold Transitions'],
+        algo: {
+          name: 'Dual-Threshold Degeneracy Transition',
+          desc: '퇴화 영역 진입 임계값($\\tau^{\\text{enter}}$)과 복귀 임계값($\\tau^{\\text{recover}}$)을 다르게 정의하여, 임계 경계선상에서 시스템 출력이 급격히 요동치는 채터링(Chattering) 현상을 차단합니다.'
+        }
+      },
+      grasp_selector: {
+        id: 'grasp_selector',
+        title: '그라습 후보 프레임 선택기',
+        subtitle: 'Candidate Grasp Frame Selector',
+        layer: 'decision',
+        color: 'var(--color-decision)',
+        x: defaultNodes.grasp_selector.x, y: defaultNodes.grasp_selector.y,
+        desc: '2D PCA를 통해 추출한 두 직교 후보 축에 대해, 물체의 너비(Width)가 그리퍼의 최대 개폐폭(Stroke Limit) 이내에 들어오는지 물리적 타당성을 검사합니다. 카메라 뷰 방향을 투영한 Approach Prior와 가까운 축을 접근 축으로 정합니다.',
+        inputs: ['Principal Axes', 'Previous Grasp State', 'Gripper Hardware Specs'],
+        outputs: ['Selected Grasp Frame (Approach & Closing Axes)', 'Grasp Width (Closing width)', 'Grasp Feasibility Flag'],
+        tech: ['Quantile Extent Estimation', 'Approach View Direction Prior', 'Stroke Margin Constraints'],
+        algo: {
+          name: 'Quantile Footprint Extent Estimation',
+          desc: '단순 경계값(Min/Max)은 외곽의 단 1개의 이상치 노이즈에도 왜곡되므로, 포인트 분포의 97% 백분위수와 3% 백분위수의 차차이를 통해 강건한 Closing 너비 $w$를 추정합니다.'
+        }
+      },
+      state_observer: {
+        id: 'state_observer',
+        title: '시계열 그라습 상태 관측기',
+        subtitle: 'Temporal Grasp State Observer',
+        layer: 'decision',
+        color: 'var(--color-decision)',
+        x: defaultNodes.state_observer.x, y: defaultNodes.state_observer.y,
+        desc: '매 프레임 계산되는 원시 계측(Raw Center, Raw Extent)의 불연속적인 단일 프레임 튀는 값들을 Jump Gate로 폐기합니다. 게이트를 통과한 값은 1차 EMA 필터 및 S1 공간에서의 Circular EMA를 통해 누적 추적합니다.',
+        inputs: ['Selected Grasp Frame', 'Grasp Width', 'Degeneracy Flag', 'Previous Grasp State'],
+        outputs: ['Filtered Grasp Center', 'Filtered Yaw Angle'],
+        tech: ['EMA State Observer', 'Jump Reject Gate', 'S1 Circular Difference Filter'],
+        algo: {
+          name: 'S1 Manifold Circular EMA Filter',
+          desc: '회전각 $\\theta$를 일반 실수 공간에서 평활화할 때 발생하는 wrap-around($180^\\circ \\leftrightarrow -180^\\circ$ 급변) 문제를 해결하기 위해, 원형 차분 $\\text{wrap}(\\theta^{\\text{raw}} - \\theta)$을 구하여 EMA를 업데이트합니다.'
+        }
+      },
+      target_generator: {
+        id: 'target_generator',
+        title: '최종 매니퓰레이션 타겟 생성기',
+        subtitle: 'Target Pose Generator',
+        layer: 'decision',
+        color: 'var(--color-decision)',
+        x: defaultNodes.target_generator.x, y: defaultNodes.target_generator.y,
+        desc: '필터링된 물체 중심과 방향각 정보, 그리고 카메라 파라미터를 결합하여 물체 전면 표면(Front Shell)으로부터 손가락 침투 마진(Penetration Depth)을 감안한 그리퍼 도달 타겟 포즈인 4x4 transform을 빌드하고 제어 준비 플래그를 판단합니다.',
+        inputs: ['Filtered Grasp Center', 'Filtered Yaw Angle', 'T_map_optical'],
+        outputs: ['T_map_target (4x4 Matrix)', 'Control Ready Flag'],
+        tech: ['Front-Shell Target Formulation', 'Gripper Penetration Depth Limiters', 'Control Gate Automation'],
+        algo: {
+          name: 'Penetration Depth Bounding Formula',
+          desc: '그리퍼가 물체를 움켜쥘 때 물체를 밀어내지 않고 파지력을 극대화할 수 있는 침투 깊이 $\\rho$를 $\\min(\\eta \\ell,\\; \\ell_g - m_f)$ 식으로 산출하여, 중심 좌표가 아닌 최적 그립 타겟 위치를 기하 계산합니다.'
+        }
+      },
+      safety_supervisor: {
+        id: 'safety_supervisor',
+        title: '실시간 안전 임계 감시자',
+        subtitle: 'Lightweight Safety Supervisor',
+        layer: 'mapping',
+        color: 'var(--color-mapping)',
+        x: defaultNodes.safety_supervisor.x, y: defaultNodes.safety_supervisor.y,
+        desc: '수신된 로컬 활성 맵 스냅샷상에서 현재 로봇의 암 관절 궤적이 가상으로 주행할 때, 장애물 격자들과 미세 접촉이나 침범을 유발하는지 실시간 충돌 간섭을 기하 감시합니다.',
+        inputs: ['Local Occupancy Grid Map (Active Map)', 'Current Arm Trajectory'],
+        outputs: ['Safety Status Event (Safe / CURRENT_POSE_UNSAFE)'],
+        tech: ['Proxy Collision Checking', 'Capsule-Voxel Geometry Mapping', 'Real-Time Intersect Monitors'],
+        algo: {
+          name: 'Capsule Proxy Collision Checking',
+          desc: '고부하인 매니퓰레이터의 전 링크 3D 메시 연산 대신, 로봇의 베이스, 링크, 그리퍼 링크들을 실린더/캡슐 형태로 단순화한 프록시 볼륨을 맵 상에 투영하여 수 ms 이내에 초고속 교차 검사를 마칩니다.'
+        }
+      },
+      astar_planner: {
+        id: 'astar_planner',
+        title: '조작성 최적 A* 플래너',
+        subtitle: 'Manipulability-A* Motion Planner',
+        layer: 'planning',
+        color: 'var(--color-planning)',
+        x: defaultNodes.astar_planner.x, y: defaultNodes.astar_planner.y,
+        desc: '장애물로 차단된 2D/3D 지도 상에서 로봇 조작기 특이점(Singularity)을 사전에 회피하도록 설계되었습니다. 조작성 지표(Manipulability index)를 엣지 가중치 비용으로 융합한 A* 그래프 탐색을 통해 최적의 충돌 회피 웨이포인트를 생성합니다.',
+        inputs: ['Local Occupancy Grid Map', 'T_map_target', 'Control Ready Flag'],
+        outputs: ['A* Waypoints (xz path)'],
+        tech: ['Manipulability Cost Map Evaluation', 'A* Shortest Search', 'Goal Projections Tolerances'],
+        algo: {
+          name: 'Manipulability-A* Weighting Search',
+          desc: '순수 최단거리 경로가 로봇의 한계 각도나 관절 잠김(Singularity) 영역 근처를 통과해 생기는 제어 불능을 예방하기 위해, 조작 효율이 낮거나 관절 한계에 인접한 구역의 비용을 증가시켜 원격 우회하게 만듭니다.'
+        }
+      },
+      c2_smoother: {
+        id: 'c2_smoother',
+        title: 'C2 연속 궤적 스무더',
+        subtitle: 'C2 Quintic Trajectory Smoother',
+        layer: 'planning',
+        color: 'var(--color-planning)',
+        x: defaultNodes.c2_smoother.x, y: defaultNodes.c2_smoother.y,
+        desc: 'A*에 의해 생성된 불연속 꺾은선 경로를 로봇 하드웨어의 급격한 모터 가속도 변화 없이 매끄럽게 지나갈 수 있도록 가속도 레벨까지 수학적 연속성(C2 Continuity)을 갖는 quintic 곡선으로 코너를 블렌딩 보간합니다.',
+        inputs: ['A* Waypoints'],
+        outputs: ['Smoothed Trajectory Reference'],
+        tech: ['C2 Corner Quintic Blender', 'Smooth Arclength Parameterization', 'Continuous Acceleration Profiles'],
+        algo: {
+          name: 'C2 Corner Quintic Blending',
+          desc: '경로 꺾임 지점에서 관절 가속도의 급발산(Jerk)을 억제하기 위해, 진입 엣지와 탈출 엣지 사이에 5차 매개변수 곡선(Quintic spline)을 수학적으로 유도 및 패치하여 위치, 속도, 가속도 연속성을 결합합니다.'
+        }
+      },
+      dls_scheduler: {
+        id: 'dls_scheduler',
+        title: '추적 오차 적응형 스케줄러',
+        subtitle: 'DLS Reference Scheduler',
+        layer: 'planning',
+        color: 'var(--color-planning)',
+        x: defaultNodes.dls_scheduler.x, y: defaultNodes.dls_scheduler.y,
+        desc: '로봇이 궤적을 쫓아가는 과정에서 물리적 제어 한계나 마찰 등으로 생성된 실시간 추적 갭(Tracking Gap)을 모니터링하여, 갭이 크면 목표 시간 프로필을 늦춰 로봇이 멈추거나 서서히 오차를 수렴하게 하는 가변 속도 파라미터를 산출합니다.',
+        inputs: ['Smoothed Trajectory Reference', 'Real-time Tracking Gap'],
+        outputs: ['Scheduled Joint Position & Velocity Reference'],
+        tech: ['Gap-Aware Path Following', 'Time-Envelope Adjusters', 'Dynamic Execution Rate Scalers'],
+        algo: {
+          name: 'Gap-Driven Velocity Retardation',
+          desc: '$\dot{s}$(경로 진행속도)를 실제 로봇 오차 $e_{\\text{tracking}}$의 함수로 매핑하여 오차가 크면 $\dot{s} \\to 0$이 되도록 제동을 걸어주어 조인트 포화 및 명령 이탈을 안전하게 제어합니다.'
+        }
+      },
+      dls_controller: {
+        id: 'dls_controller',
+        title: '조작성 최적화 DLS 제어기',
+        subtitle: 'DLS Controller & Rollout Executor',
+        layer: 'planning',
+        color: 'var(--color-planning)',
+        x: defaultNodes.dls_controller.x, y: defaultNodes.dls_controller.y,
+        desc: '엔드이펙터(그리퍼)의 직교 경로 명령을 관절 명령으로 매핑하기 위한 역기하 계산 시, 자코비안 특이점 근처에서 관절 속도가 비정상 발산하는 것을 감쇠 최소자승(Damped Least Squares)을 통해 안정화하여 에피소드를 시뮬레이션 및 에뮬레이션 롤아웃합니다.',
+        inputs: ['Scheduled Joint Position & Velocity Reference'],
+        outputs: ['Joint Trajectory CSV', 'Control Summary JSON'],
+        tech: ['Damped Least Squares Inverse Jacobian', 'Singularity Evading Control Loop', 'Episode Rollout Loggers'],
+        algo: {
+          name: 'Damped Least Squares (DLS) Jacobian Inverse',
+          desc: '특이값 분해(SVD)를 기반으로 작은 특이값에 감쇠 계수 $\\lambda$를 주어 역행렬이 발산하는 것을 억제하는 동시에 조작 지표가 안전 영역일 때는 감쇠를 제거하여 추종 정밀도를 복원합니다.'
+        }
+      },
+      execution_supervisor: {
+        id: 'execution_supervisor',
+        title: '동적 제어 실행 감독관',
+        subtitle: 'Moving Arm Execution Supervisor',
+        layer: 'execution',
+        color: 'var(--color-execution)',
+        x: defaultNodes.execution_supervisor.x, y: defaultNodes.execution_supervisor.y,
+        desc: '보간 가공된 Execution Candidate를 ROS2 action command 형태로 실시간 로봇 구동 노드에 발행합니다. 주행 도중 실시간 안전 감시자로부터 비상 상황(Unsafe Event)을 접수하면 즉시 하드웨어를 강제 취소(Cancel)하고, 역궤적 복구(Backtrack) 명령을 내립니다.',
+        inputs: ['Execution Candidate', 'Safety Status Event', 'Real-time Joint State'],
+        outputs: ['ROS2 Trajectory Goal Command', 'Cancel / Reverse Command', 'Safety Recovery Handoff Requests'],
+        tech: ['ROS2 Action Trajectory Client', 'Safety Interrupt Gating', 'Trajectory Reverse Interpolation'],
+        algo: {
+          name: 'Dynamic Safety Handoff and Backtrack',
+          desc: '동작 도중 장애물이 발생하면 그 즉시 현위치에서 주행을 중지하고 안전 감시 기록(Execution History)의 역추적 데이터를 계산하여 충돌 전의 안전한 초기 웨이포인트 방향으로 강제 복귀(Backtrack)시킵니다.'
+        }
+      },
+      artifact_bridge: {
+        id: 'artifact_bridge',
+        title: '제어 아티팩트 가교',
+        subtitle: 'Control Artifact Bridge',
+        layer: 'execution',
+        color: 'var(--color-execution)',
+        x: defaultNodes.artifact_bridge.x, y: defaultNodes.artifact_bridge.y,
+        desc: 'Control Module이 롤아웃을 마쳐 생성한 불연속 저장 아티팩트들(summary.json, episode.csv 등)을 실제 하드웨어의 통신 패킷 인터페이스 주기(Execution DT) 및 활성 관절 리스트 순서에 완벽히 매칭되도록 1차 보간 및 형변환합니다.',
+        inputs: ['Joint Trajectory CSV', 'Control Summary JSON'],
+        outputs: ['Execution Candidate (q_traj, s, xz, dt, timestamps)'],
+        tech: ['Control-to-Execution Resampler', 'Trajectory Consistency Validators', 'Timestamp Alignment Filters'],
+        algo: {
+          name: 'Mono-Time Resampling & Verification',
+          desc: '물리적인 조작 지연을 방지하기 위해 생성된 조인트 데이터가 단조 증가 시간 축 상에 완벽하게 놓이는지 수학적으로 검사하고 1D linear interpolator로 제어 주기를 재정렬합니다.'
+        }
+      }
+    };
+    // Bounded edge label ratios (strictly restricted to [0.38 - 0.62] to avoid touching source or target nodes)
+    const edges = [
+      { source: 'camera_ingress', target: 'bbox_detector', label: 'BGR Image', outPort: 0, inPort: 0, labelT: 0.38 },
+      { source: 'camera_ingress', target: 'mask_segmenter', label: 'BGR Image', outPort: 1, inPort: 0, labelT: 0.46 },
+      { source: 'camera_ingress', target: 'depth_regularizer', label: 'Raw Depth', outPort: 2, inPort: 0, labelT: 0.54 },
+      { source: 'camera_ingress', target: 'evidence_fusion', label: 'Raw Depth', outPort: 3, inPort: 0, labelT: 0.62 },
+      
+      { source: 'transform_provider', target: 'evidence_fusion', label: 'Camera Pose', outPort: 0, inPort: 1, labelT: 0.38 },
+      { source: 'transform_provider', target: 'pca_projector', label: 'T_map_optical', outPort: 1, inPort: 1, labelT: 0.50 },
+      { source: 'transform_provider', target: 'target_generator', label: 'T_map_optical', outPort: 2, inPort: 2, labelT: 0.62 },
+      
+      { source: 'bbox_detector', target: 'mask_segmenter', label: '2D BBox', outPort: 0, inPort: 1, labelT: 0.50 },
+      { source: 'mask_segmenter', target: 'backprojector', label: 'Binary Mask', outPort: 0, inPort: 0, labelT: 0.50 },
+      { source: 'depth_regularizer', target: 'backprojector', label: 'Guided Depth', outPort: 0, inPort: 1, labelT: 0.50 },
+      
+      { source: 'backprojector', target: 'pca_projector', label: 'Point Cloud', outPort: 0, inPort: 0, labelT: 0.50 },
+      { source: 'pca_projector', target: 'degeneracy_gate', label: 'Eigenvalues', outPort: 0, inPort: 0, labelT: 0.45 },
+      { source: 'pca_projector', target: 'grasp_selector', label: 'Principal Axes', outPort: 1, inPort: 0, labelT: 0.50 },
+      
+      { source: 'degeneracy_gate', target: 'state_observer', label: 'Lock Yaw Flag', outPort: 0, inPort: 0, labelT: 0.50 },
+      { source: 'grasp_selector', target: 'state_observer', label: 'Grasp Width', outPort: 0, inPort: 1, labelT: 0.50 },
+      
+      { source: 'state_observer', target: 'target_generator', label: 'Center & Yaw', outPort: 0, inPort: 0, labelT: 0.50 },
+      { source: 'evidence_fusion', target: 'safety_supervisor', label: 'Active Map', outPort: 0, inPort: 0, labelT: 0.50 },
+      { source: 'evidence_fusion', target: 'astar_planner', label: 'Active Map', outPort: 1, inPort: 0, labelT: 0.55 },
+      
+      { source: 'target_generator', target: 'astar_planner', label: 'T_map_target', outPort: 0, inPort: 1, labelT: 0.50 },
+      { source: 'astar_planner', target: 'c2_smoother', label: 'A* Waypoints', outPort: 0, inPort: 0, labelT: 0.50 },
+      { source: 'c2_smoother', target: 'dls_scheduler', label: 'Smooth Ref', outPort: 0, inPort: 0, labelT: 0.50 },
+      { source: 'dls_scheduler', target: 'dls_controller', label: 'Schedule Ref', outPort: 0, inPort: 0, labelT: 0.50 },
+      
+      { source: 'dls_controller', target: 'artifact_bridge', label: 'Trajectory CSV', outPort: 0, inPort: 0, labelT: 0.42 },
+      { source: 'artifact_bridge', target: 'execution_supervisor', label: 'Candidate', outPort: 0, inPort: 0, labelT: 0.50 },
+      
+      { source: 'safety_supervisor', target: 'execution_supervisor', label: 'Safety Event', outPort: 0, inPort: 1, labelT: 0.50 },
+      { source: 'execution_supervisor', target: 'safety_supervisor', label: 'Arm Trajectory', outPort: 0, inPort: 1, labelT: 0.50 }
+    ];
+    // Filter flows mapping
+    const flows = {
+      all: [],
+      'perception-decision': ['camera_ingress', 'transform_provider', 'bbox_detector', 'mask_segmenter', 'depth_regularizer', 'backprojector', 'pca_projector', 'degeneracy_gate', 'grasp_selector', 'state_observer', 'target_generator'],
+      'mapping-planning': ['camera_ingress', 'transform_provider', 'depth_regularizer', 'evidence_fusion', 'backprojector', 'target_generator', 'safety_supervisor', 'astar_planner', 'c2_smoother'],
+      'control-execution': ['evidence_fusion', 'target_generator', 'safety_supervisor', 'astar_planner', 'c2_smoother', 'dls_scheduler', 'dls_controller', 'artifact_bridge', 'execution_supervisor']
+    };
+    // DOM Elements
+    const canvas = document.getElementById('canvas');
+    const transformGroup = document.getElementById('transform-group');
+    const nodesLayer = document.getElementById('nodes-layer');
+    const edgesLayer = document.getElementById('edges-layer');
+    const particlesLayer = document.getElementById('particles-layer');
+    const panel = document.getElementById('panel');
+    const panelCloseBtn = document.getElementById('panel-close-btn');
+    const panelContentArea = document.getElementById('panel-content-area');
+    const legend = document.getElementById('legend');
+    
+    // Zoom & Pan variables
+    let zoomLevel = 1.0;
+    let translateX = 0;
+    let translateY = 0;
+    let isDragging = false;
+    let startX, startY;
+    let activeNodeId = null;
+    // Drag-and-drop state variables
+    let activeDragNode = null;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+    const layerBadges = {
+      ingress: { text: 'Ingress & Sync', bg: 'rgba(75, 85, 99, 0.2)', border: 'rgba(75, 85, 99, 0.4)' },
+      perception: { text: 'Neural Net', bg: 'rgba(168, 85, 247, 0.15)', border: 'rgba(168, 85, 247, 0.3)' },
+      decision: { text: 'Geometric Observer', bg: 'rgba(6, 182, 212, 0.15)', border: 'rgba(6, 182, 212, 0.3)' },
+      mapping: { text: 'Active Mapping', bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)' },
+      planning: { text: 'Control / A*', bg: 'rgba(249, 115, 22, 0.15)', border: 'rgba(249, 115, 22, 0.3)' },
+      execution: { text: 'Supervisor / ROS2', bg: 'rgba(239, 68, 68, 0.15)', border: 'rgba(239, 68, 68, 0.3)' }
+    };
+    // Load saved layout on startup
+    function loadSavedLayout() {
+      const saved = localStorage.getItem('l_omm_graph_layout');
+      if (saved) {
+        try {
+          const layout = JSON.parse(saved);
+          Object.keys(layout).forEach(id => {
+            if (nodes[id]) {
+              nodes[id].x = layout[id].x;
+              nodes[id].y = layout[id].y;
+            }
+          });
+        } catch (e) {
+          console.error("Failed to parse saved layout", e);
+        }
+      }
+    }
+    // Save layout to local storage
+    function saveLayout() {
+      const layout = {};
+      Object.keys(nodes).forEach(id => {
+        layout[id] = { x: nodes[id].x, y: nodes[id].y };
+      });
+      localStorage.setItem('l_omm_graph_layout', JSON.stringify(layout));
+      // Visual feedback
+      const saveBtn = document.getElementById('save-layout-btn');
+      const origText = saveBtn.textContent;
+      saveBtn.textContent = '저장 완료! ✓';
+      saveBtn.style.background = 'rgba(16, 185, 129, 0.2)';
+      saveBtn.style.color = '#34d399';
+      saveBtn.style.borderColor = '#10b981';
+      setTimeout(() => {
+        saveBtn.textContent = origText;
+        saveBtn.style.background = '';
+        saveBtn.style.color = '';
+        saveBtn.style.borderColor = '';
+      }, 1500);
+    }
+    // Reset layout configuration
+    function resetLayout() {
+      localStorage.removeItem('l_omm_graph_layout');
+      location.reload();
+    }
+
+    // Calculate dynamic port coordinates based on vertical node ordering
+    function getDynamicPortCoords(node, portType, edge) {
+      const boxWidth = 200;
+      const boxHeight = 85;
+    const x = portType === 'in' ? node.x : node.x + boxWidth;
+    let siblingEdges = [];
+      if (portType === 'out') {
+        // Output ports: sort targets by their current Y coordinate (ascending)
+        siblingEdges = edges.filter(e => e.source === node.id);
+        siblingEdges.sort((a, b) => {
+          const targetA = nodes[a.target];
+          const targetB = nodes[b.target];
+          return targetA.y - targetB.y;
+        });
+      } else {
+        // Input ports: sort sources by their current Y coordinate (ascending)
+        siblingEdges = edges.filter(e => e.target === node.id);
+        siblingEdges.sort((a, b) => {
+          const sourceA = nodes[a.source];
+          const sourceB = nodes[b.source];
+          return sourceA.y - sourceB.y;
+        });
+      }
+      const portIndex = siblingEdges.findIndex(e => e.source === edge.source && e.target === edge.target);
+      const portCount = siblingEdges.length;
+      if (portCount <= 1 || portIndex === -1) {
+        return { x, y: node.y + boxHeight / 2 };
+      }
+      // Add a small vertical padding to avoid placing ports right on corners
+      const verticalPadding = 12;
+      const usableHeight = boxHeight - (verticalPadding * 2);
+      const step = usableHeight / (portCount - 1);
+      return { x, y: node.y + verticalPadding + (step * portIndex) };
+    }
+    // Precise cubic bezier point calculator at ratio t [0..1]
+    function getCubicBezierXY(t, x1, y1, x2, y2, offset) {
+      const cx1 = x1 + offset;
+      const cy1 = y1;
+      const cx2 = x2 - offset;
+      const cy2 = y2;
+      const mt = 1 - t;
+      const mt2 = mt * mt;
+      const mt3 = mt2 * mt;
+      const t2 = t * t;
+      const t3 = t2 * t;
+      const x = mt3 * x1 + 3 * mt2 * t * cx1 + 3 * mt * t2 * cx2 + t3 * x2;
+      const y = mt3 * y1 + 3 * mt2 * t * cy1 + 3 * mt * t2 * cy2 + t3 * y2;
+      return { x, y };
+    }
+    function getLoopbackBezierXY(t, x1, y1, x2, y2, bendRadius) {
+      const cx1 = x1;
+      const cy1 = y1 + bendRadius;
+      const cx2 = x2;
+      const cy2 = y2 + bendRadius;
+      const mt = 1 - t;
+      const mt2 = mt * mt;
+      const mt3 = mt2 * mt;
+      const t2 = t * t;
+      const t3 = t2 * t;
+      const x = mt3 * x1 + 3 * mt2 * t * cx1 + 3 * mt * t2 * cx2 + t3 * x2;
+      const y = mt3 * y1 + 3 * mt2 * t * cy1 + 3 * mt * t2 * cy2 + t3 * y2;
+      return { x, y };
+    }
+    // Helper to map mouse client coords to SVG viewbox coords
+    function getSVGPoint(e) {
+      const svg = document.getElementById('canvas');
+      const pt = svg.createSVGPoint();
+      pt.x = e.clientX;
+      pt.y = e.clientY;
+      
+      const transformMatrix = transformGroup.getScreenCTM();
+      return pt.matrixTransform(transformMatrix.inverse());
+    }
+    // Update coordinates and curves for all edges dynamically based on layout positions
+    function updateAllEdges() {
+      edges.forEach((edge) => {
+        const srcNode = nodes[edge.source];
+        const tgtNode = nodes[edge.target];
+        if (!srcNode || !tgtNode) return;
+        const sourcePt = getDynamicPortCoords(srcNode, 'out', edge);
+        const targetPt = getDynamicPortCoords(tgtNode, 'in', edge);
+        let d = '';
+        const dx = Math.abs(targetPt.x - sourcePt.x);
+        let midPt = { x: 0, y: 0 };
+        const labelRatio = edge.labelT || 0.5;
+        if (targetPt.x < sourcePt.x) {
+          const bendRadius = 70;
+          const boxWidth = 200;
+          const boxHeight = 85;
+          const x1 = srcNode.x + boxWidth / 2;
+          const y1 = srcNode.y + boxHeight;
+          const x2 = tgtNode.x + boxWidth / 2;
+          const y2 = tgtNode.y + boxHeight;
+          d = `M ${x1} ${y1} C ${x1} ${y1 + bendRadius}, ${x2} ${y2 + bendRadius}, ${x2} ${y2}`;
+          midPt = getLoopbackBezierXY(labelRatio, x1, y1, x2, y2, bendRadius);
+        } else {
+          const offset = dx * 0.55;
+          d = `M ${sourcePt.x} ${sourcePt.y} C ${sourcePt.x + offset} ${sourcePt.y}, ${targetPt.x - offset} ${targetPt.y}, ${targetPt.x} ${targetPt.y}`;
+          midPt = getCubicBezierXY(labelRatio, sourcePt.x, sourcePt.y, targetPt.x, targetPt.y, offset);
+        }
+        // Update main edge path
+        const pathEl = document.getElementById(`edge-${edge.source}-${edge.target}`);
+        if (pathEl) pathEl.setAttribute('d', d);
+        // Update motion animation path
+        const particle = document.getElementById(`particle-${edge.source}-${edge.target}`);
+        if (particle) {
+          const anim = particle.querySelector('animateMotion');
+          if (anim) anim.setAttribute('path', d);
+        }
+        // Update Label positions dynamically along Bezier curve
+        const mx = midPt.x;
+        const my = midPt.y;
+        const textLength = edge.label.length;
+        const bgWidth = textLength * 5.8 + 12;
+        const bgHeight = 15;
+        const bgEl = document.getElementById(`labelbg-${edge.source}-${edge.target}`);
+        if (bgEl) {
+          bgEl.setAttribute('x', mx - bgWidth / 2);
+          bgEl.setAttribute('y', my - bgHeight / 2);
+        }
+        const textEl = document.getElementById(`label-${edge.source}-${edge.target}`);
+        if (textEl) {
+          textEl.setAttribute('x', mx);
+          textEl.setAttribute('y', my + 0.5);
+        }
+      });
+    }
+    // Initialize SVG Graph
+    function initGraph() {
+      // 1. Draw Edges
+      edges.forEach((edge, idx) => {
+        const srcNode = nodes[edge.source];
+        const tgtNode = nodes[edge.target];
+        if (!srcNode || !tgtNode) return;
+        // Calculate discrete port positions dynamically
+        const sourcePt = getDynamicPortCoords(srcNode, 'out', edge);
+        const targetPt = getDynamicPortCoords(tgtNode, 'in', edge);
+        let d = '';
+        const dx = Math.abs(targetPt.x - sourcePt.x);
+        let midPt = { x: 0, y: 0 };
+        const labelRatio = edge.labelT || 0.5;
+        if (targetPt.x < sourcePt.x) {
+          // Backward routing (e.g. Supervisor to Safety checking or similar feedback loops)
+          const bendRadius = 70;
+          const boxWidth = 200;
+          const boxHeight = 85;
+          
+          // Re-route from bottom to bottom
+          const x1 = srcNode.x + boxWidth / 2;
+          const y1 = srcNode.y + boxHeight;
+          const x2 = tgtNode.x + boxWidth / 2;
+          const y2 = tgtNode.y + boxHeight;
+          
+          d = `M ${x1} ${y1} C ${x1} ${y1 + bendRadius}, ${x2} ${y2 + bendRadius}, ${x2} ${y2}`;
+          midPt = getLoopbackBezierXY(labelRatio, x1, y1, x2, y2, bendRadius);
+        } else {
+          // Forward S-curve
+          const offset = dx * 0.55; // Slightly stiffer S-curve for wire alignment
+          d = `M ${sourcePt.x} ${sourcePt.y} C ${sourcePt.x + offset} ${sourcePt.y}, ${targetPt.x - offset} ${targetPt.y}, ${targetPt.x} ${targetPt.y}`;
+          midPt = getCubicBezierXY(labelRatio, sourcePt.x, sourcePt.y, targetPt.x, targetPt.y, offset);
+        }
+        // Draw SVG Path
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('id', `edge-${edge.source}-${edge.target}`);
+        path.setAttribute('class', 'edge-line');
+        path.setAttribute('d', d);
+        path.setAttribute('marker-end', 'url(#arrow)');
+        edgesLayer.appendChild(path);
+        // Flow particle on edge
+        const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        particle.setAttribute('id', `particle-${edge.source}-${edge.target}`);
+        particle.setAttribute('r', '3.5');
+        particle.setAttribute('class', 'flow-particle');
+        particle.setAttribute('fill', '#00f2fe');
+        
+        const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
+        animate.setAttribute('dur', `${3 + Math.random() * 2}s`);
+        animate.setAttribute('repeatCount', 'indefinite');
+        animate.setAttribute('path', d);
+        
+        particle.appendChild(animate);
+        particlesLayer.appendChild(particle);
+        // Edge label (placed precisely along Bezier curve coordinates)
+        const mx = midPt.x;
+        const my = midPt.y;
+        
+        // Calculate label size based on char count
+        const textLength = edge.label.length;
+        const bgWidth = textLength * 5.8 + 12;
+        const bgHeight = 15;
+        const textBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        textBg.setAttribute('x', mx - bgWidth / 2);
+        textBg.setAttribute('y', my - bgHeight / 2);
+        textBg.setAttribute('width', bgWidth);
+        textBg.setAttribute('height', bgHeight);
+        textBg.setAttribute('class', 'edge-text-bg');
+        textBg.setAttribute('id', `labelbg-${edge.source}-${edge.target}`);
+        edgesLayer.appendChild(textBg);
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', mx);
+        text.setAttribute('y', my + 0.5); // Baseline adjustment
+        text.setAttribute('class', 'edge-text');
+        text.setAttribute('id', `label-${edge.source}-${edge.target}`);
+        text.textContent = edge.label;
+        edgesLayer.appendChild(text);
+      });
+      // 2. Draw Nodes
+      Object.values(nodes).forEach(node => {
+        const boxWidth = 200;
+        const boxHeight = 85;
+        const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        group.setAttribute('id', `node-${node.id}`);
+        group.setAttribute('class', 'node-group');
+        group.setAttribute('transform', `translate(${node.x}, ${node.y})`);
+        // Node card background
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('width', boxWidth);
+        rect.setAttribute('height', boxHeight);
+        rect.setAttribute('class', 'node-rect');
+        rect.setAttribute('stroke', node.color);
+        group.appendChild(rect);
+        // Sidebar color strip
+        const strip = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        strip.setAttribute('width', 5);
+        strip.setAttribute('height', boxHeight - 24);
+        strip.setAttribute('x', 8);
+        strip.setAttribute('y', 12);
+        strip.setAttribute('rx', 2.5);
+        strip.setAttribute('fill', node.color);
+        group.appendChild(strip);
+        // Title
+        const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        title.setAttribute('x', 22);
+        title.setAttribute('y', 28);
+        title.setAttribute('class', 'node-title');
+        title.textContent = node.title;
+        group.appendChild(title);
+        // Subtitle
+        const sub = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        sub.setAttribute('x', 22);
+        sub.setAttribute('y', 45);
+        sub.setAttribute('class', 'node-subtitle');
+        sub.textContent = node.subtitle;
+        group.appendChild(sub);
+        // Badge Container
+        const badgeInfo = layerBadges[node.layer];
+        if (badgeInfo) {
+          const badgeBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          badgeBg.setAttribute('x', 22);
+          badgeBg.setAttribute('y', 55);
+          badgeBg.setAttribute('width', 110);
+          badgeBg.setAttribute('height', 14);
+          badgeBg.setAttribute('class', 'node-badge');
+          badgeBg.setAttribute('fill', badgeInfo.bg);
+          badgeBg.setAttribute('stroke', badgeInfo.border);
+          badgeBg.setAttribute('stroke-width', 0.5);
+          group.appendChild(badgeBg);
+          const badgeText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          badgeText.setAttribute('x', 77);
+          badgeText.setAttribute('y', 65);
+          badgeText.setAttribute('class', 'node-badge-text');
+          badgeText.textContent = badgeInfo.text;
+          group.appendChild(badgeText);
+        }
+        // Attach event listeners for selection
+        group.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectNode(node.id);
+        });
+        // Drag-and-drop triggers
+        group.addEventListener('mousedown', (e) => {
+          if (e.button !== 0) return; // Left click only
+          e.stopPropagation();
+          activeDragNode = node.id;
+          const svgPt = getSVGPoint(e);
+          dragOffsetX = svgPt.x - node.x;
+          dragOffsetY = svgPt.y - node.y;
+          document.getElementById('viewport').style.cursor = 'grabbing';
+        });
+        group.addEventListener('mouseenter', () => hoverNode(node.id, true));
+        group.addEventListener('mouseleave', () => hoverNode(node.id, false));
+        nodesLayer.appendChild(group);
+      });
+    }
+    // Node Click Logic
+    function selectNode(id) {
+      document.querySelectorAll('.node-group').forEach(el => {
+        el.classList.remove('active-highlight');
+      });
+      const selectedEl = document.getElementById(`node-${id}`);
+      if (selectedEl) {
+        selectedEl.classList.add('active-highlight');
+      }
+      activeNodeId = id;
+      renderNodeDetails(nodes[id]);
+      
+      panel.classList.add('open');
+      legend.classList.add('collapsed');
+    }
+    // Node details rendering inside drawer
+    function renderNodeDetails(node) {
+      let inputsHTML = node.inputs.map(i => `
+        <div class="io-item">
+          <span class="io-icon in">Input</span>
+          <span class="io-name">${i}</span>
+        </div>
+      `).join('');
+      let outputsHTML = node.outputs.map(o => `
+        <div class="io-item">
+          <span class="io-icon out">Output</span>
+          <span class="io-name">${o}</span>
+        </div>
+      `).join('');
+      let techHTML = node.tech.map(t => `
+        <span class="tech-badge">${t}</span>
+      `).join('');
+      const badgeInfo = layerBadges[node.layer];
+      panelContentArea.innerHTML = `
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <div style="width: 14px; height: 14px; border-radius: 4px; background: ${node.color}"></div>
+            <span style="font-size: 0.85rem; font-weight: 700; color: ${node.color}; text-transform: uppercase;">
+              ${badgeInfo ? badgeInfo.text : ''}
+            </span>
+          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">${node.title}</h3>
+          <p style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted);">${node.subtitle}</p>
+        </div>
+        <div>
+          <div class="section-title">모듈 목적 및 역할</div>
+          <div class="desc-box">${node.desc}</div>
+        </div>
+        <div>
+          <div class="section-title">입력 / 출력 데이터 스펙</div>
+          <div class="io-list">
+            ${inputsHTML}
+            ${outputsHTML}
+          </div>
+        </div>
+        <div>
+          <div class="section-title">구현 기술 스택</div>
+          <div class="tech-badge-container">
+            ${techHTML}
+          </div>
+        </div>
+        <div>
+          <div class="section-title">주요 연산 및 알고리즘</div>
+          <div class="algorithm-card">
+            <h4>${node.algo.name}</h4>
+            <p>${node.algo.desc}</p>
+          </div>
+        </div>
+      `;
+    }
+    // Close panel
+    panelCloseBtn.addEventListener('click', () => {
+      panel.classList.remove('open');
+      legend.classList.remove('collapsed');
+      document.querySelectorAll('.node-group').forEach(el => {
+        el.classList.remove('active-highlight');
+      });
+      activeNodeId = null;
+    });
+    // Hover interactive highlighting
+    function hoverNode(id, isEntering) {
+      if (isEntering) {
+        const connectedNodes = new Set([id]);
+        const connectedEdges = [];
+        edges.forEach(edge => {
+          if (edge.source === id) {
+            connectedNodes.add(edge.target);
+            connectedEdges.push(`${edge.source}-${edge.target}`);
+          }
+          if (edge.target === id) {
+            connectedNodes.add(edge.source);
+            connectedEdges.push(`${edge.source}-${edge.target}`);
+          }
+        });
+        // Dim everything except connected elements
+        Object.keys(nodes).forEach(nid => {
+          const el = document.getElementById(`node-${nid}`);
+          if (el) {
+            if (!connectedNodes.has(nid)) {
+              el.classList.add('dimmed');
+            } else {
+              el.classList.add('highlight-focus');
+            }
+          }
+        });
+        edges.forEach(edge => {
+          const key = `${edge.source}-${edge.target}`;
+          const el = document.getElementById(`edge-${key}`);
+          const lbl = document.getElementById(`label-${key}`);
+          const lblBg = document.getElementById(`labelbg-${key}`);
+          const p = document.getElementById(`particle-${key}`); // animateMotion particle
+          
+          if (connectedEdges.includes(key)) {
+            if (el) {
+              el.style.setProperty('--highlight-color', nodes[id].color);
+              el.classList.add('edge-highlight-focus');
+              el.setAttribute('marker-end', 'url(#arrow-highlight)');
+            }
+            if (p) {
+              p.setAttribute('fill', '#00f2fe');
+              p.setAttribute('r', '5.5');
+            }
+            if (lbl) lbl.style.fill = '#fff';
+          } else {
+            if (el) el.classList.add('dimmed');
+            if (lbl) lbl.classList.add('dimmed');
+            if (lblBg) lblBg.classList.add('dimmed');
+            if (p) p.setAttribute('opacity', '0.05');
+          }
+        });
+      } else {
+        // Reset everything
+        document.querySelectorAll('.node-group').forEach(el => {
+          el.classList.remove('dimmed', 'highlight-focus');
+        });
+        document.querySelectorAll('.edge-line').forEach(el => {
+          el.classList.remove('dimmed', 'edge-highlight-focus');
+          el.setAttribute('marker-end', 'url(#arrow)');
+        });
+        document.querySelectorAll('.edge-text, .edge-text-bg').forEach(el => {
+          el.classList.remove('dimmed');
+        });
+        document.querySelectorAll('.edge-text').forEach(el => {
+          el.style.fill = 'var(--text-muted)';
+        });
+        document.querySelectorAll('.flow-particle').forEach(el => {
+          el.setAttribute('opacity', '1');
+          el.setAttribute('fill', '#00f2fe');
+          el.setAttribute('r', '3.5');
+        });
+      }
+    }
+    // Zoom and Pan Handling
+    function updateTransform() {
+      transformGroup.setAttribute('transform', `translate(${translateX}, ${translateY}) scale(${zoomLevel})`);
+    }
+    document.getElementById('zoom-in').addEventListener('click', () => {
+      zoomLevel = Math.min(zoomLevel + 0.1, 2.5);
+      updateTransform();
+    });
+    document.getElementById('zoom-reset').addEventListener('click', () => {
+      zoomLevel = 1.0;
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+    });
+    // Global Mousemove event to track node dragging and pan dragging
+    window.addEventListener('mousemove', (e) => {
+      if (activeDragNode) {
+        // Handle node drag & drop
+        e.preventDefault();
+        const node = nodes[activeDragNode];
+        const svgPt = getSVGPoint(e);
+        
+        node.x = svgPt.x - dragOffsetX;
+        node.y = svgPt.y - dragOffsetY;
+        
+        const groupEl = document.getElementById(`node-${activeDragNode}`);
+        if (groupEl) {
+          groupEl.setAttribute('transform', `translate(${node.x}, ${node.y})`);
+        }
+        
+        updateAllEdges();
+      } else if (isDragging) {
+        // Handle canvas pan dragging
+        translateX = e.clientX - startX;
+        translateY = e.clientY - startY;
+        updateTransform();
+      }
+    });
+    window.addEventListener('mouseup', () => {
+      if (activeDragNode) {
+        activeDragNode = null;
+        document.getElementById('viewport').style.cursor = 'grab';
+      }
+      isDragging = false;
+    });
+    // Viewport drag-to-pan initialization
+    const viewport = document.getElementById('viewport');
+    viewport.addEventListener('mousedown', (e) => {
+      // Disallow pan trigger if clicking nodes or controls
+      if (e.target.closest('.node-group') || e.target.closest('.zoom-controls') || e.target.closest('.legend-panel')) return;
+      isDragging = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+      viewport.style.cursor = 'grabbing';
+    });
+    viewport.addEventListener('mouseup', () => {
+      viewport.style.cursor = 'grab';
+    });
+    // Touch support for mobiles/tablets (Drag-to-pan)
+    viewport.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.node-group')) return;
+      isDragging = true;
+      startX = e.touches[0].clientX - translateX;
+      startY = e.touches[0].clientY - translateY;
+    });
+    window.addEventListener('touchmove', (e) => {
+      if (activeDragNode) {
+        // Drag node touch
+        const node = nodes[activeDragNode];
+        const svgPt = getSVGPoint(e.touches[0]);
+        node.x = svgPt.x - dragOffsetX;
+        node.y = svgPt.y - dragOffsetY;
+        const groupEl = document.getElementById(`node-${activeDragNode}`);
+        if (groupEl) groupEl.setAttribute('transform', `translate(${node.x}, ${node.y})`);
+        updateAllEdges();
+      } else if (isDragging) {
+        // Pan canvas touch
+        translateX = e.touches[0].clientX - startX;
+        translateY = e.touches[0].clientY - startY;
+        updateTransform();
+      }
+    });
+    window.addEventListener('touchend', () => {
+      activeDragNode = null;
+      isDragging = false;
+    });
+    // Wheel zoom
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const zoomFactor = 0.05;
+      if (e.deltaY < 0) {
+        zoomLevel = Math.min(zoomLevel + zoomFactor, 2.5);
+      } else {
+        zoomLevel = Math.max(zoomLevel - zoomFactor, 0.4);
+      }
+      updateTransform();
+    });
+    // Tab Flow Filters
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const flow = btn.getAttribute('data-flow');
+        filterFlow(flow);
+      });
+    });
+    function filterFlow(flowType) {
+      if (flowType === 'all') {
+        document.querySelectorAll('.node-group').forEach(el => el.classList.remove('dimmed'));
+        document.querySelectorAll('.edge-line').forEach(el => {
+          el.classList.remove('dimmed');
+          el.setAttribute('marker-end', 'url(#arrow)');
+        });
+        document.querySelectorAll('.edge-text, .edge-text-bg').forEach(el => el.classList.remove('dimmed'));
+        document.querySelectorAll('.flow-particle').forEach(el => el.setAttribute('opacity', '1'));
+        return;
+      }
+      const activeNodes = flows[flowType];
+      
+      // Update nodes visibility
+      Object.keys(nodes).forEach(nid => {
+        const el = document.getElementById('node-' + nid);
+        if (el) {
+          if (activeNodes.includes(nid)) {
+            el.classList.remove('dimmed');
+          } else {
+            el.classList.add('dimmed');
+          }
+        }
+      });
+      // Update edges visibility
+      edges.forEach(edge => {
+        const key = `${edge.source}-${edge.target}`;
+        const el = document.getElementById(`edge-${key}`);
+        const lbl = document.getElementById(`label-${key}`);
+        const lblBg = document.getElementById(`labelbg-${key}`);
+        const p = document.getElementById(`particle-${key}`); // animateMotion circle
+        
+        const isActive = activeNodes.includes(edge.source) && activeNodes.includes(edge.target);
+        if (isActive) {
+          if (el) {
+            el.classList.remove('dimmed');
+            el.setAttribute('marker-end', 'url(#arrow)');
+          }
+          if (lbl) lbl.classList.remove('dimmed');
+          if (lblBg) lblBg.classList.remove('dimmed');
+          if (p) p.setAttribute('opacity', '1');
+        } else {
+          if (el) el.classList.add('dimmed');
+          if (lbl) lbl.classList.add('dimmed');
+          if (lblBg) lblBg.classList.add('dimmed');
+          if (p) p.setAttribute('opacity', '0.05');
+        }
+      });
+    }
+    // Download HTML with current layout coordinates embedded
+    function downloadLayout() {
+      // Get current HTML content (outerHTML contains the entire DOM)
+      let htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      
+      // Build coordinates mapping matching defaultNodes structure
+      const currentCoords = {};
+      Object.keys(nodes).forEach(id => {
+        currentCoords[id] = { x: Math.round(nodes[id].x), y: Math.round(nodes[id].y) };
+      });
+      
+      // JSON format representation for replacement
+      const newDefaultNodesStr = `const defaultNodes = ${JSON.stringify(currentCoords, null, 2)};`;
+      
+      // Match const defaultNodes = { ... }; in script
+      const defaultNodesRegex = /const\s+defaultNodes\s*=\s*\{[\s\S]*?\};/;
+      
+      if (defaultNodesRegex.test(htmlContent)) {
+        htmlContent = htmlContent.replace(defaultNodesRegex, newDefaultNodesStr);
+      }
+      
+      // Clean up dynamic classes and attributes from the downloaded file
+      htmlContent = htmlContent.replace(/\s+dimmed/g, '');
+      htmlContent = htmlContent.replace(/\s+highlight-focus/g, '');
+      htmlContent = htmlContent.replace(/\s+active-highlight/g, '');
+      htmlContent = htmlContent.replace(/\s+edge-highlight-focus/g, '');
+      htmlContent = htmlContent.replace(/class="details-panel\s+open"/g, 'class="details-panel"');
+      htmlContent = htmlContent.replace(/class="legend-panel\s+collapsed"/g, 'class="legend-panel"');
+      
+      // Reset zoom/pan transform matrix in downloaded file
+      htmlContent = htmlContent.replace(/id="transform-group"\s+transform="[^"]*"/g, 'id="transform-group"');
+      
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'gemini_graph.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    // Attach Action Buttons
+    document.getElementById('save-layout-btn').addEventListener('click', saveLayout);
+    document.getElementById('download-layout-btn').addEventListener('click', downloadLayout);
+    document.getElementById('reset-layout-btn').addEventListener('click', resetLayout);
+    // Run on startup
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSavedLayout();
+      initGraph();
+    });
+  </script>
+</body>
+</html>

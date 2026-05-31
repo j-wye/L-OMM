@@ -1,0 +1,45 @@
+{
+  "frames_analyzed": 1,
+  "prod_rect_area_m2": {
+    "min": 0.0525,
+    "max": 0.0525,
+    "mean": 0.0525
+  },
+  "prod_rect_cell_count": {
+    "min": 45.0,
+    "max": 45.0,
+    "mean": 45.0
+  },
+  "invalid_pixel_count": {
+    "min": 8.0,
+    "max": 8.0,
+    "mean": 8.0
+  },
+  "goal_corridor_overlap_prod": {
+    "min": 3.0,
+    "max": 3.0,
+    "mean": 3.0
+  },
+  "goal_corridor_overlap_min_depth": {
+    "min": 0.0,
+    "max": 0.0,
+    "mean": 0.0
+  },
+  "goal_corridor_overlap_median_adjacent": {
+    "min": 1.0,
+    "max": 1.0,
+    "mean": 1.0
+  },
+  "median_adjacent_depth_value_m": {
+    "min": 0.4000000059604645,
+    "max": 0.4000000059604645,
+    "mean": 0.4000000059604645
+  },
+  "production_consistency_check_true": 1,
+  "production_consistency_check_total": 1,
+  "production_consistency_check_rate": 1.0,
+  "conservatism_ratio_prod_area_over_min_depth_area_median": 52500000000.0,
+  "median_adjacent_reduction_ratio_median": 0.6666666666666667,
+  "run_dir": "C:\\Users\\jongy\\OneDrive\\바탕 화면\\All\\Lab\\석사\\논문\\2026 ICRA\\Antigravity\\L-OMM\\scripts\\map_update_layer\\experiments\\_tmp_audit_debug\\run",
+  "out_dir": "C:\\Users\\jongy\\OneDrive\\바탕 화면\\All\\Lab\\석사\\논문\\2026 ICRA\\Antigravity\\L-OMM\\scripts\\map_update_layer\\experiments\\_tmp_audit_debug\\run\\audit"
+}

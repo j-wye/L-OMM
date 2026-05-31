@@ -1,0 +1,13 @@
+{
+  "frames_analyzed": 1,
+  "essential_overlap_frame_average": 0.0,
+  "projection_artifact_overlap_frame_average": 2.0,
+  "per_frame": [
+    {
+      "frame_id": 0,
+      "essential_overlap_count": 0,
+      "projection_artifact_overlap_count": 2,
+      "production_goal_overlap_count": 3
+    }
+  ]
+}

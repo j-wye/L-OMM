@@ -1,0 +1,35 @@
+{
+  "_name_or_path": "google/owlvit-large-patch14",
+  "architectures": [
+    "OwlViTForObjectDetection"
+  ],
+  "initializer_factor": 1.0,
+  "logit_scale_init_value": 2.6592,
+  "model_type": "owlvit",
+  "projection_dim": 768,
+  "text_config": {
+    "bos_token_id": 0,
+    "dropout": 0.0,
+    "eos_token_id": 2,
+    "hidden_size": 768,
+    "intermediate_size": 3072,
+    "max_length": 16,
+    "model_type": "owlvit_text_model",
+    "num_attention_heads": 16,
+    "pad_token_id": 1
+  },
+  "text_config_dict": null,
+  "torch_dtype": "float32",
+  "transformers_version": "4.41.2",
+  "vision_config": {
+    "dropout": 0.0,
+    "hidden_size": 1024,
+    "image_size": 840,
+    "intermediate_size": 4096,
+    "model_type": "owlvit_vision_model",
+    "num_attention_heads": 16,
+    "num_hidden_layers": 24,
+    "patch_size": 14
+  },
+  "vision_config_dict": null
+}
